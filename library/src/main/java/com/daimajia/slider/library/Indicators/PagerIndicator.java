@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +12,17 @@ import android.widget.LinearLayout;
 
 import com.daimajia.slider.library.Infinity.InfinitePagerAdapter;
 import com.daimajia.slider.library.R;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 import java.util.ArrayList;
 
 /**
  * Created by daimajia on 14-5-27.
  */
-public class PagerIndicator extends LinearLayout implements ViewPager.OnPageChangeListener{
+public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageChangeListener{
 
     private Context mContext;
-    private ViewPager mPager;
+    private ViewPagerEx mPager;
     private ImageView mPreviousSelectedIndicator;
     private int mPreviousSelectedPosition;
 
@@ -50,7 +50,7 @@ public class PagerIndicator extends LinearLayout implements ViewPager.OnPageChan
         mUnselectedDrawable = getResources().getDrawable(R.drawable.circle_common_layer);
     }
 
-    public void setViewPager(ViewPager pager){
+    public void setViewPager(ViewPagerEx pager){
         if(pager.getAdapter() == null){
             throw new IllegalStateException("Viewpager does not have adapter instance");
         }

@@ -31,6 +31,7 @@ import com.daimajia.slider.library.Transformers.TabletTransformer;
 import com.daimajia.slider.library.Transformers.ZoomInTransformer;
 import com.daimajia.slider.library.Transformers.ZoomOutSlideTransformer;
 import com.daimajia.slider.library.Transformers.ZoomOutTransformer;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.daimajia.slider.library.Utils.FixedSpeedScroller;
 
 import java.lang.reflect.Field;
@@ -89,7 +90,7 @@ public class SliderLayout extends RelativeLayout{
                 return false;
             }
         });
-        setSliderTransformDuration(1100,null);
+        setSliderTransformDuration(1300,null);
     }
 
 
@@ -172,7 +173,7 @@ public class SliderLayout extends RelativeLayout{
         mIndicator.setIndicator(selectedDrawable,unselectedDrawable);
     }
 
-    public void setPagerTransformer(boolean reverseDrawingOrder, ViewPager.PageTransformer transformer){
+    public void setPagerTransformer(boolean reverseDrawingOrder, ViewPagerEx.PageTransformer transformer){
         mViewPager.setPageTransformer(reverseDrawingOrder,transformer);
     }
 
@@ -236,8 +237,7 @@ public class SliderLayout extends RelativeLayout{
         //
         // special thanks to https://github.com/ToxicBakery/ViewPagerTransforms
         //
-
-        ViewPager.PageTransformer t = null;
+        ViewPagerEx.PageTransformer t = null;
         switch (ts){
             case Default:
                 t = new DefaultTransformer();
@@ -288,6 +288,6 @@ public class SliderLayout extends RelativeLayout{
                 t = new ZoomOutTransformer();
                 break;
         }
-        setPagerTransformer(true,t);
+        setPagerTransformer(true, t);
     }
 }

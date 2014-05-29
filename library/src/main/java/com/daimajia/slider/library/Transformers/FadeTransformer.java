@@ -1,14 +1,14 @@
 package com.daimajia.slider.library.Transformers;
 
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by realandylawton on 11/22/13.
  */
-public class FadeTransformer implements ViewPager.PageTransformer {
+public class FadeTransformer implements ViewPagerEx.PageTransformer {
 
     public void transformPage(View view, float position) {
 

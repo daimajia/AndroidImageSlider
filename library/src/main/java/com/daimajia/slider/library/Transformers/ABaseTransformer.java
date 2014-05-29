@@ -1,11 +1,11 @@
 package com.daimajia.slider.library.Transformers;
 
 import android.view.View;
-import android.support.v4.view.ViewPager.PageTransformer;
 
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.nineoldandroids.view.ViewHelper;
 
-public abstract class ABaseTransformer implements PageTransformer {
+public abstract class ABaseTransformer implements ViewPagerEx.PageTransformer {
 
     /**
      * Called each {@link #transformPage(View, float)}.

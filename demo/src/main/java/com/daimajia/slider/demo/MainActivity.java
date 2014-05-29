@@ -2,8 +2,6 @@ package com.daimajia.slider.demo;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -53,7 +51,7 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
             slider.addSlider(textSliderView);
         }
         slider.startCycle();
-        slider.setPresetTransformer(SliderLayout.Transformer.Stack);
+        slider.setPresetTransformer(SliderLayout.Transformer.ZoomOut);
 
         ListView l = (ListView)findViewById(R.id.transformers);
         l.setAdapter(new TransformerAdapter(this));
@@ -65,23 +63,6 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
                 Toast.makeText(MainActivity.this,((TextView)view).getText().toString(),Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
