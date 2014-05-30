@@ -1,7 +1,6 @@
 package com.daimajia.slider.library.Transformers;
 
 import android.os.Build;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
@@ -29,7 +28,7 @@ public class FlipPageViewTransformer implements ViewPagerEx.PageTransformer {
     }
 
     private void setTranslation(View view) {
-        ViewPager viewPager = (ViewPager) view.getParent();
+        ViewPagerEx viewPager = (ViewPagerEx) view.getParent();
         int scroll = viewPager.getScrollX() - view.getLeft();
         ViewHelper.setTranslationX(view,scroll);
     }

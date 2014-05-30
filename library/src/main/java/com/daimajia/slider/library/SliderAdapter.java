@@ -17,7 +17,6 @@ public class SliderAdapter extends PagerAdapter implements BaseSliderView.ImageL
     private Context mContext;
     private ArrayList<BaseSliderView> mImageContents;
 
-
     public SliderAdapter(Context context){
         mContext = context;
         mImageContents = new ArrayList<BaseSliderView>();
@@ -58,8 +57,8 @@ public class SliderAdapter extends PagerAdapter implements BaseSliderView.ImageL
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        BaseSliderView image = mImageContents.get(position);
-        View v = image.getView();
+        BaseSliderView b = mImageContents.get(position);
+        View v = b.getView();
         container.addView(v);
         return v;
     }

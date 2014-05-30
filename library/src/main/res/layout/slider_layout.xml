@@ -8,10 +8,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <com.daimajia.slider.library.Indicators.PagerIndicator
-        android:id="@+id/daimajia_slider_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:id="@+id/default_center_bottom_indicator"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
+        android:paddingBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.daimajia.slider.library.Indicators.PagerIndicator
+        android:id="@+id/default_bottom_right_indicator"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.daimajia.slider.library.Indicators.PagerIndicator
+        android:id="@+id/default_bottom_left_indicator"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.daimajia.slider.library.Indicators.PagerIndicator
+        android:id="@+id/default_center_top_indicator"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.daimajia.slider.library.Indicators.PagerIndicator
+        android:id="@+id/default_center_top_right_indicator"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.daimajia.slider.library.Indicators.PagerIndicator
+        android:id="@+id/default_center_top_left_indicator"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

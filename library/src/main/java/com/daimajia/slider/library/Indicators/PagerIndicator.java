@@ -33,7 +33,6 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     private Drawable mUnselectedDrawable;
 
     private int mItemCount = 0;
-    private int mRealItemCount = 0;
 
     private ArrayList<ImageView> mIndicators = new ArrayList<ImageView>();
 
@@ -50,6 +49,14 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         mUnselectedDrawable = getResources().getDrawable(R.drawable.circle_common_layer);
     }
 
+    /**
+     * clear self means unregister the dataset observer and remove all the child views(indicators).
+     */
+    public void clearSelf(){
+        ((InfinitePagerAdapter)(mPager.getAdapter())).getRealAdapter().unregisterDataSetObserver(dataChangeObserver);
+        removeAllViews();
+    }
+
     public void setViewPager(ViewPagerEx pager){
         if(pager.getAdapter() == null){
             throw new IllegalStateException("Viewpager does not have adapter instance");
@@ -59,17 +66,29 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         ((InfinitePagerAdapter)mPager.getAdapter()).getRealAdapter().registerDataSetObserver(dataChangeObserver);
     }
 
-    public void setIndicator(int selected,int unselected){
+    public void setIndicatorDrawable(int selected, int unselected){
         mUserSetSelectedIndicatorResId = selected;
         mUserSetUnSelectedIndicatorResId = unselected;
 
         mSelectedDrawable = mContext.getResources().getDrawable(mUserSetSelectedIndicatorResId);
         mUnselectedDrawable = mContext.getResources().getDrawable(mUserSetUnSelectedIndicatorResId);
 
-        redraw();
+        resetDrawable();
     }
 
-    private void redraw(){
+    private void resetDrawable(){
+        for(View i : mIndicators){
+            if(mPreviousSelectedIndicator!= null && mPreviousSelectedIndicator.equals(i)){
+                ((ImageView)i).setImageDrawable(mSelectedDrawable);
+            }
+            else{
+                ((ImageView)i).setImageDrawable(mUnselectedDrawable);
+            }
+        }
+    }
+
+    public void redraw(){
+        mItemCount = getShouldDrawCount();
         mPreviousSelectedIndicator = null;
         for(View i:mIndicators){
             removeView(i);
@@ -83,6 +102,14 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         setItemAsSelected(mPreviousSelectedPosition);
     }
 
+    private int getShouldDrawCount(){
+        if(mPager.getAdapter() instanceof InfinitePagerAdapter){
+            return ((InfinitePagerAdapter)mPager.getAdapter()).getRealCount();
+        }else{
+            return mPager.getAdapter().getCount();
+        }
+    }
+
     private DataSetObserver dataChangeObserver = new DataSetObserver() {
         @Override
         public void onChanged() {
@@ -93,7 +120,6 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
             }else{
                 count = adapter.getCount();
             }
-            mRealItemCount = count;
             if(count > mItemCount){
                 for(int i =0 ; i< count - mItemCount;i++){
                     ImageView indicator = new ImageView(mContext);
@@ -114,6 +140,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         @Override
         public void onInvalidated() {
             super.onInvalidated();
+            redraw();
         }
     };
 
@@ -122,18 +149,20 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
             mPreviousSelectedIndicator.setImageDrawable(mUnselectedDrawable);
         }
         ImageView currentSelected = (ImageView)getChildAt(position + 1);
-        currentSelected.setImageDrawable(mSelectedDrawable);
-        mPreviousSelectedIndicator = currentSelected;
+        if(currentSelected != null){
+            currentSelected.setImageDrawable(mSelectedDrawable);
+            mPreviousSelectedIndicator = currentSelected;
+        }
         mPreviousSelectedPosition = position;
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if(mRealItemCount == 0){
+        if(mItemCount == 0){
             return;
         }
-        int n = position % mRealItemCount;
-        setItemAsSelected(n);
+        int n = position % mItemCount;
+        setItemAsSelected(n - 1);
     }
 
     @Override

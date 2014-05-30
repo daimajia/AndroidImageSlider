@@ -1,6 +1,7 @@
 package com.daimajia.slider.library;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -48,6 +49,9 @@ public class SliderLayout extends RelativeLayout{
     private SliderAdapter mSliderAdapter;
     private PagerIndicator mIndicator;
 
+    private int mSelectedDrawableId;
+    private int mUnselectedDrawableId;
+
     private Timer mCycleTimer;
     private TimerTask mCycleTask;
 
@@ -56,6 +60,12 @@ public class SliderLayout extends RelativeLayout{
 
     private boolean mCycling;
     private boolean mAutoRecover;
+    private boolean mPagerInfinite;
+
+    private int mTransformerId;
+    private int mTransformerSpan;
+    private Interpolator mAnimationInterpolator;
+
 
     public SliderLayout(Context context) {
         this(context,null);
@@ -69,30 +79,48 @@ public class SliderLayout extends RelativeLayout{
         super(context, attrs, defStyle);
         mContext = context;
         LayoutInflater.from(context).inflate(R.layout.slider_layout, this, true);
+
+        final TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs,R.styleable.SliderLayout,
+                defStyle,0);
+
+        mPagerInfinite = attributes.getBoolean(R.styleable.SliderLayout_pager_infinite,true);
+        mTransformerSpan = attributes.getInteger(R.styleable.SliderLayout_pager_animation_span,1100);
+        mTransformerId = attributes.getInt(R.styleable.SliderLayout_pager_animation,Transformer.DepthPage.ordinal());
+        mUnselectedDrawableId = attributes.getResourceId(R.styleable.SliderLayout_indicator_selected_drawable,R.drawable.circle_common_layer);
+        mSelectedDrawableId = attributes.getResourceId(R.styleable.SliderLayout_indicator_unselected_drawable,R.drawable.circle_selected_layer);
+
         mSliderAdapter = new SliderAdapter(mContext);
         PagerAdapter wrappedAdapter = new InfinitePagerAdapter(mSliderAdapter);
 
         mViewPager = (InfiniteViewPager)findViewById(R.id.daimajia_slider_viewpager);
         mViewPager.setAdapter(wrappedAdapter);
-
-        mIndicator = (PagerIndicator)findViewById(R.id.daimajia_slider_indicator);
-        mIndicator.setViewPager(mViewPager);
-
+        setPagerIndicator((PagerIndicator)findViewById(R.id.default_center_bottom_indicator));
         mViewPager.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
                 switch (action) {
-                    case MotionEvent.ACTION_UP:
+                     case MotionEvent.ACTION_UP:
                         recoverCycle();
                         break;
                 }
                 return false;
             }
         });
-        setSliderTransformDuration(1300,null);
+
+        setPresetTransformer(mTransformerId);
+        setSliderTransformDuration(mTransformerSpan,null);
     }
 
+    public void setPagerIndicator(PagerIndicator indicator){
+        if(mIndicator != null){
+            mIndicator.clearSelf();
+        }
+        mIndicator = indicator;
+        mIndicator.setViewPager(mViewPager);
+        mIndicator.setIndicatorDrawable(mSelectedDrawableId, mUnselectedDrawableId);
+        mIndicator.redraw();
+    }
 
     public <T extends BaseSliderView> void addSlider(T imageContent){
         mSliderAdapter.addSlider(imageContent);
@@ -169,8 +197,10 @@ public class SliderLayout extends RelativeLayout{
     }
 
 
+
     public void setIndicatorStyle(int selectedDrawable,int unselectedDrawable){
-        mIndicator.setIndicator(selectedDrawable,unselectedDrawable);
+        if(mIndicator != null)
+            mIndicator.setIndicatorDrawable(selectedDrawable, unselectedDrawable);
     }
 
     public void setPagerTransformer(boolean reverseDrawingOrder, ViewPagerEx.PageTransformer transformer){
@@ -218,6 +248,15 @@ public class SliderLayout extends RelativeLayout{
             return (other == null)? false:name.equals(other);
         }
     };
+
+    public void setPresetTransformer(int transformerId){
+        for(Transformer t : Transformer.values()){
+            if(t.ordinal() == transformerId){
+                setPresetTransformer(t);
+                break;
+            }
+        }
+    }
 
     public void setPresetTransformer(String transformerName){
         for(Transformer t : Transformer.values()){

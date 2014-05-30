@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.RenderTypes.BaseSliderView;
 import com.daimajia.slider.library.RenderTypes.TextSliderView;
 import com.daimajia.slider.library.SliderLayout;
@@ -35,7 +36,7 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
         file_maps.put("House of Cards",R.drawable.house);
         file_maps.put("Game of Thrones",R.drawable.game_of_thrones);
 
-        for(String name : url_maps.keySet()){
+        for(String name : file_maps.keySet()){
             TextSliderView textSliderView = new TextSliderView(this);
             // initialize a sliderview
             textSliderView
@@ -43,7 +44,6 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
                     .image(file_maps.get(name))
                     .errorDisappear(true)
                     .setOnSliderClickListener(this);
-
             //add your extra information
             textSliderView.getBundle()
                     .putString("extra",name);
@@ -59,10 +59,12 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                slider.setPresetTransformer(((TextView)view).getText().toString());
-                Toast.makeText(MainActivity.this,((TextView)view).getText().toString(),Toast.LENGTH_SHORT).show();
+                slider.setPresetTransformer(((TextView) view).getText().toString());
+                Toast.makeText(MainActivity.this, ((TextView) view).getText().toString(), Toast.LENGTH_SHORT).show();
+                slider.setIndicatorStyle(R.drawable.circle_common_layer2, R.drawable.circle_common_layer);
             }
         });
+        slider.setPagerIndicator((PagerIndicator) findViewById(R.id.default_bottom_right_indicator));
     }
 
     @Override

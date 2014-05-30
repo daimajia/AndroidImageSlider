@@ -10,9 +10,16 @@
         android:id="@+id/slider"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
+    <com.daimajia.slider.library.Indicators.PagerIndicator
+        android:id="@+id/daimajia_slider_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        />
     <ListView
         android:layout_below="@+id/slider"
         android:id="@+id/transformers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
+
+
 </RelativeLayout>
