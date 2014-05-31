@@ -24,6 +24,7 @@ public class TextSliderView extends BaseSliderView{
         description.setText(getDescription());
         loadImage(target);
         bindClickEvent(v);
+        v.setTag(getDescription());
         return v;
     }
 }

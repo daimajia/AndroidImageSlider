@@ -8,6 +8,14 @@
             <enum name="invisible" value="1">1</enum>
         </attr>
 
+        <attr name="indicator_shape" format="enum">
+            <enum value="0" name="oval">oval</enum>
+            <enum value="1" name="rect">rect</enum>
+        </attr>
+
+        <attr name="indicator_selected_color" format="color"/>
+        <attr name="indicator_unselected_color" format="color"/>
+
         <!-- indicator style -->
         <attr name="indicator_selected_drawable" format="reference"/>
         <attr name="indicator_unselected_drawable" format="reference"/>

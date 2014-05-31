@@ -4,16 +4,22 @@
     xmlns:grid="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.daimajia.slider.demo.MainActivity">
     <com.daimajia.slider.library.SliderLayout
         android:id="@+id/slider"
+        grid:indicator_shape="oval"
+        grid:indicator_selected_color="#FF7C1F"
+        grid:indicator_unselected_color="#ffffffff"
         android:layout_width="match_parent"
+        grid:pager_animation="Accordion"
         android:layout_height="200dp"/>
     <com.daimajia.slider.library.Indicators.PagerIndicator
-        android:id="@+id/daimajia_slider_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:id="@+id/custom_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
         />
     <ListView
         android:layout_below="@+id/slider"

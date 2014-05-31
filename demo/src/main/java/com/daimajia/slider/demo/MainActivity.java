@@ -8,10 +8,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daimajia.slider.library.Indicators.PagerIndicator;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.RenderTypes.BaseSliderView;
 import com.daimajia.slider.library.RenderTypes.TextSliderView;
 import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.Transformers.DepthPageTransformer;
 
 import java.util.HashMap;
 
@@ -50,21 +51,19 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
 
             slider.addSlider(textSliderView);
         }
-        slider.startCycle();
-        slider.setPresetTransformer(SliderLayout.Transformer.ZoomOut);
+        slider.startAutoCycle();
 
         ListView l = (ListView)findViewById(R.id.transformers);
         l.setAdapter(new TransformerAdapter(this));
-
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 slider.setPresetTransformer(((TextView) view).getText().toString());
                 Toast.makeText(MainActivity.this, ((TextView) view).getText().toString(), Toast.LENGTH_SHORT).show();
-                slider.setIndicatorStyle(R.drawable.circle_common_layer2, R.drawable.circle_common_layer);
             }
         });
-        slider.setPagerIndicator((PagerIndicator) findViewById(R.id.default_bottom_right_indicator));
+        slider.setPagerTransformer(false,new DepthPageTransformer());
+        slider.setCustomAnimation(new DescriptionAnimation());
     }
 
     @Override

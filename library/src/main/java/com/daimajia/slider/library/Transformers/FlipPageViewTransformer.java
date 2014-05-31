@@ -6,9 +6,10 @@ import android.view.View;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.nineoldandroids.view.ViewHelper;
 
-public class FlipPageViewTransformer implements ViewPagerEx.PageTransformer {
+public class FlipPageViewTransformer extends ABaseTransformer {
+
     @Override
-    public void transformPage(View view, float position) {
+    protected void onTransform(View view, float position) {
         float percentage = 1 - Math.abs(position);
         if(Build.VERSION.SDK_INT >= 13){
             view.setCameraDistance(12000);

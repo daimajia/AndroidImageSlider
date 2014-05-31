@@ -2,15 +2,15 @@ package com.daimajia.slider.library.Transformers;
 
 import android.view.View;
 
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by realandylawton on 11/22/13.
  */
-public class FadeTransformer implements ViewPagerEx.PageTransformer {
+public class FadeTransformer extends ABaseTransformer {
 
-    public void transformPage(View view, float position) {
+    @Override
+    protected void onTransform(View view, float position) {
 
         // Page is not an immediate sibling, just make transparent
         if(position < -1 || position > 1) {
@@ -28,7 +28,6 @@ public class FadeTransformer implements ViewPagerEx.PageTransformer {
         else if (position == 0) {
             ViewHelper.setAlpha(view,1);
         }
-
     }
 
 }

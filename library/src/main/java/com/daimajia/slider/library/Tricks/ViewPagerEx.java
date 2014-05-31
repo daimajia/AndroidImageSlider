@@ -316,6 +316,7 @@ public class ViewPagerEx extends ViewGroup{
          *                 page position to the right, and -1 is one page position to the left.
          */
         public void transformPage(View page, float position);
+
     }
 
     /**

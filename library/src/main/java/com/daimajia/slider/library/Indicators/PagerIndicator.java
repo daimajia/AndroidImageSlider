@@ -17,7 +17,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import java.util.ArrayList;
 
 /**
- * Created by daimajia on 14-5-27.
+ * Pager Indicator.
  */
 public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageChangeListener{
 
@@ -45,8 +45,8 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         mContext = context;
         LayoutInflater.from(context).inflate(R.layout.indicator_layout,this,true);
 
-        mSelectedDrawable = getResources().getDrawable(R.drawable.circle_selected_layer);
-        mUnselectedDrawable = getResources().getDrawable(R.drawable.circle_common_layer);
+        mSelectedDrawable = getResources().getDrawable(R.drawable.selected_indicator);
+        mUnselectedDrawable = getResources().getDrawable(R.drawable.unselected_indicator);
     }
 
     /**
@@ -57,6 +57,10 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         removeAllViews();
     }
 
+    /**
+     * bind indicator with viewpagerEx.
+     * @param pager
+     */
     public void setViewPager(ViewPagerEx pager){
         if(pager.getAdapter() == null){
             throw new IllegalStateException("Viewpager does not have adapter instance");
@@ -66,7 +70,12 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         ((InfinitePagerAdapter)mPager.getAdapter()).getRealAdapter().registerDataSetObserver(dataChangeObserver);
     }
 
-    public void setIndicatorDrawable(int selected, int unselected){
+    /**
+     * Set Indicator style.
+     * @param selected page selected drawable
+     * @param unselected page unselected drawable
+     */
+    public void setIndicatorStyle(int selected, int unselected){
         mUserSetSelectedIndicatorResId = selected;
         mUserSetUnSelectedIndicatorResId = unselected;
 
@@ -87,6 +96,9 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         }
     }
 
+    /**
+     * redraw the indicators.
+     */
     public void redraw(){
         mItemCount = getShouldDrawCount();
         mPreviousSelectedIndicator = null;
@@ -102,6 +114,10 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         setItemAsSelected(mPreviousSelectedPosition);
     }
 
+    /**
+     * since we used a adapter wrapper, so we can't getCount directly from wrapper.
+     * @return
+     */
     private int getShouldDrawCount(){
         if(mPager.getAdapter() instanceof InfinitePagerAdapter){
             return ((InfinitePagerAdapter)mPager.getAdapter()).getRealCount();
@@ -171,6 +187,14 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     }
     @Override
     public void onPageScrollStateChanged(int state) {
+    }
+
+    public int getSelectedIndicatorResId(){
+        return mUserSetSelectedIndicatorResId;
+    }
+
+    public int getUnSelectedIndicatorResId(){
+        return mUserSetUnSelectedIndicatorResId;
     }
 
 }
