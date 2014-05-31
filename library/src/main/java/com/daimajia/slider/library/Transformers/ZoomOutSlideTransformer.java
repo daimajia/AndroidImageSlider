@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.nineoldandroids.view.ViewHelper;
 
-public class ZoomOutSlideTransformer extends ABaseTransformer {
+public class ZoomOutSlideTransformer extends BaseTransformer {
 
 	private static final float MIN_SCALE = 0.85f;
 	private static final float MIN_ALPHA = 0.5f;

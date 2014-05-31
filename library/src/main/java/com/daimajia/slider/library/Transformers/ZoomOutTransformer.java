@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.nineoldandroids.view.ViewHelper;
 
-public class ZoomOutTransformer extends ABaseTransformer {
+public class ZoomOutTransformer extends BaseTransformer {
 
     @Override
     protected void onTransform(View view, float position) {

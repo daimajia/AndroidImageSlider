@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.daimajia.slider.library.Infinity.InfinitePagerAdapter;
+import com.daimajia.slider.library.Tricks.InfinitePagerAdapter;
 import com.daimajia.slider.library.R;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
@@ -22,18 +22,53 @@ import java.util.ArrayList;
 public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageChangeListener{
 
     private Context mContext;
+
+    /**
+     * bind this Indicator with {@link com.daimajia.slider.library.Tricks.ViewPagerEx}
+     */
     private ViewPagerEx mPager;
+
+    /**
+     * Variable to remember the previous selected indicator.
+     */
     private ImageView mPreviousSelectedIndicator;
+
+    /**
+     * Previous selected indicator position.
+     */
     private int mPreviousSelectedPosition;
 
+    /**
+     * Custom selected indicator style resource id.
+     */
     private int mUserSetUnSelectedIndicatorResId;
+
+
+    /**
+     * Custom unselected indicator style resource id.
+     */
     private int mUserSetSelectedIndicatorResId;
 
+    /**
+     * Selected indicator style drawable.
+     */
     private Drawable mSelectedDrawable;
+
+    /**
+     * Unselected indicator style drawable.
+     */
     private Drawable mUnselectedDrawable;
 
+    /**
+     *This value is from {@link com.daimajia.slider.library.SliderAdapter} getRealCount() represent
+     *
+     * the indicator count that we should draw.
+     */
     private int mItemCount = 0;
 
+    /**
+     * Put all the indicators into a ArrayList, so we can remove them easily.
+     */
     private ArrayList<ImageView> mIndicators = new ArrayList<ImageView>();
 
     public PagerIndicator(Context context) {

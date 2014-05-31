@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.nineoldandroids.view.ViewHelper;
 
-public class StackTransformer extends ABaseTransformer {
+public class StackTransformer extends BaseTransformer {
 
 	@Override
 	protected void onTransform(View view, float position) {

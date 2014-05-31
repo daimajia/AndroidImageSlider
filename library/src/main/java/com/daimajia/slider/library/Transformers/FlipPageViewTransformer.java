@@ -6,7 +6,7 @@ import android.view.View;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.nineoldandroids.view.ViewHelper;
 
-public class FlipPageViewTransformer extends ABaseTransformer {
+public class FlipPageViewTransformer extends BaseTransformer {
 
     @Override
     protected void onTransform(View view, float position) {

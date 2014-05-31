@@ -1,4 +1,4 @@
-package com.daimajia.slider.library.Infinity;
+package com.daimajia.slider.library.Tricks;
 
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;

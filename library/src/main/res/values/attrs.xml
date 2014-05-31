@@ -43,8 +43,6 @@
         <!-- page animation time span -->
         <attr name="pager_animation_span" format="integer"/>
 
-        <attr name="pager_infinite" format="boolean"/>
-
     </declare-styleable>
 
     <declare-styleable name="Themes">

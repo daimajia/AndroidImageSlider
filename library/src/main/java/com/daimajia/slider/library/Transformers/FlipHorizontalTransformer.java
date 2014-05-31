@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.nineoldandroids.view.ViewHelper;
 
-public class FlipHorizontalTransformer extends ABaseTransformer {
+public class FlipHorizontalTransformer extends BaseTransformer {
 
 	@Override
 	protected void onTransform(View view, float position) {

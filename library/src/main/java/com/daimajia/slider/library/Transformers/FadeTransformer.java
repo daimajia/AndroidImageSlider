@@ -7,7 +7,7 @@ import com.nineoldandroids.view.ViewHelper;
 /**
  * Created by realandylawton on 11/22/13.
  */
-public class FadeTransformer extends ABaseTransformer {
+public class FadeTransformer extends BaseTransformer {
 
     @Override
     protected void onTransform(View view, float position) {

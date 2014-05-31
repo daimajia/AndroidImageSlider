@@ -1,4 +1,4 @@
-package com.daimajia.slider.library.Utils;
+package com.daimajia.slider.library.Tricks;
 
 import android.content.Context;
 import android.view.animation.Interpolator;

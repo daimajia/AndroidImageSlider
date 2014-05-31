@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.nineoldandroids.view.ViewHelper;
 
-public class RotateDownTransformer extends ABaseTransformer {
+public class RotateDownTransformer extends BaseTransformer {
 
 	private static final float ROT_MOD = -15f;
 

@@ -5,12 +5,12 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.daimajia.slider.library.RenderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 
 import java.util.ArrayList;
 
 /**
- * Created by daimajia on 14-5-27.
+ * A slider adapter
  */
 public class SliderAdapter extends PagerAdapter implements BaseSliderView.ImageLoadListener{
 

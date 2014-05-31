@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.nineoldandroids.view.ViewHelper;
 
-public class AccordionTransformer extends ABaseTransformer {
+public class AccordionTransformer extends BaseTransformer {
 
     @Override
     protected void onTransform(View view, float position) {

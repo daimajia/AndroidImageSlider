@@ -1,4 +1,4 @@
-package com.daimajia.slider.library.RenderTypes;
+package com.daimajia.slider.library.SliderTypes;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.daimajia.slider.library.R;
 
 /**
- * a simple slider view, which just show a image. If you want to make your own slider view,
+ * a simple slider view, which just show an image. If you want to make your own slider view,
  *
  * just extend BaseSliderView, and implement getView() method.
  */

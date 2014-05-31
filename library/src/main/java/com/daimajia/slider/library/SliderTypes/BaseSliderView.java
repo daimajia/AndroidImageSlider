@@ -1,4 +1,4 @@
-package com.daimajia.slider.library.RenderTypes;
+package com.daimajia.slider.library.SliderTypes;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,7 +13,10 @@ import com.squareup.picasso.RequestCreator;
 import java.io.File;
 
 /**
- * Created by daimajia on 14-5-27.
+ * When you want to make your own slider view, you must extends from this class.
+ * BaseSliderView provides some useful methods. Such loadImage, setImage,and so on.
+ * I provide two example: {@link com.daimajia.slider.library.SliderTypes.DefaultSliderView} and
+ * {@link com.daimajia.slider.library.SliderTypes.TextSliderView}
  */
 public abstract class BaseSliderView {
 
@@ -21,7 +24,14 @@ public abstract class BaseSliderView {
 
     private Bundle mBundle;
 
+    /**
+     * Error place holder image.
+     */
     private int mErrorPlaceHolderRes;
+
+    /**
+     * Empty imageView placeholder.
+     */
     private int mEmptyPlaceHolderRes;
 
     private String mUrl;

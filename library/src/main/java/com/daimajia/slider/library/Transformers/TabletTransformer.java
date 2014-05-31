@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.nineoldandroids.view.ViewHelper;
 
-public class TabletTransformer extends ABaseTransformer {
+public class TabletTransformer extends BaseTransformer {
 
 	private static final Matrix OFFSET_MATRIX = new Matrix();
 	private static final Camera OFFSET_CAMERA = new Camera();

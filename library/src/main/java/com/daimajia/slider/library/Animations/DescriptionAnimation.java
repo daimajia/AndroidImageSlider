@@ -8,11 +8,10 @@ import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created by daimajia on 14-5-31.
+ * A demo class to show how to use {@link com.daimajia.slider.library.Animations.BaseAnimationInterface}
+ * to make  your custom animation in {@link com.daimajia.slider.library.Tricks.ViewPagerEx.PageTransformer} action.
  */
 public class DescriptionAnimation implements BaseAnimationInterface {
-
-    private View mDescriptionView;
 
     @Override
     public void onPrepareCurrentItemLeaveScreen(View current) {
@@ -41,7 +40,7 @@ public class DescriptionAnimation implements BaseAnimationInterface {
     }
 
     /**
-     * When next item show in ViewPager, let's make an animation to show the
+     * When next item show in ViewPagerEx, let's make an animation to show the
      * description layout.
      * @param view
      */

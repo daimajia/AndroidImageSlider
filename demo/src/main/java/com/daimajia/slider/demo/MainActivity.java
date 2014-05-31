@@ -9,8 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.RenderTypes.BaseSliderView;
-import com.daimajia.slider.library.RenderTypes.TextSliderView;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.Transformers.DepthPageTransformer;
 

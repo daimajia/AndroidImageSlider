@@ -72,6 +72,14 @@ import java.util.Comparator;
  * {@sample development/samples/Support13Demos/src/com/example/android/supportv13/app/ActionBarTabsPager.java
  *      complete}
  */
+
+
+/**
+ * @author daimajia : I just remove the if condition in setPageTransformer() to make it compatiable with Android 2.0+
+ * of course, with the help of the NineOldDroid.
+ * Thanks to JakeWharton.
+ * http://github.com/JakeWharton/NineOldAndroids
+ */
 public class ViewPagerEx extends ViewGroup{
     private static final String TAG = "ViewPagerEx";
     private static final boolean DEBUG = false;

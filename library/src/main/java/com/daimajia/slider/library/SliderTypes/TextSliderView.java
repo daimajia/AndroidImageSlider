@@ -1,4 +1,4 @@
-package com.daimajia.slider.library.RenderTypes;
+package com.daimajia.slider.library.SliderTypes;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.daimajia.slider.library.R;
 
 /**
- * Created by daimajia on 14-5-28.
+ * This is a slider with a description TextView.
  */
 public class TextSliderView extends BaseSliderView{
     public TextSliderView(Context context) {
