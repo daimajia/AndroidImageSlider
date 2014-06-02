@@ -8,7 +8,7 @@ You can easily load image from net,drawable or file. And there are many kind of 
  
 ![](http://ww3.sinaimg.cn/mw690/610dc034jw1egzor66ojdg20950fknpe.gif)
 
-[Download Apk](http://jmp.sh/SBsgM3U)
+[Download Apk](http://jmp.sh/K3mBLCy)
  
 ##Usage
  
