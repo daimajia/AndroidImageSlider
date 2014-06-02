@@ -7,20 +7,34 @@
     tools:context="com.daimajia.slider.demo.MainActivity">
     <com.daimajia.slider.library.SliderLayout
         android:id="@+id/slider"
-        grid:indicator_shape="oval"
-        grid:indicator_selected_color="#FF7C1F"
-        grid:indicator_unselected_color="#ffffffff"
         android:layout_width="match_parent"
         grid:pager_animation="Accordion"
+        grid:auto_cycle="true"
+        grid:indicator_visibility="visible"
+        grid:pager_animation_span="1100"
         android:layout_height="200dp"/>
+
     <com.daimajia.slider.library.Indicators.PagerIndicator
         android:id="@+id/custom_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        grid:selected_color="#555555"
+        grid:unselected_color="#55555555"
+        grid:shape="oval"
+        grid:selected_padding_left="3dp"
+        grid:selected_padding_right="3dp"
+        grid:unselected_padding_left="3dp"
+        grid:unselected_padding_right="3dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        grid:selected_width="8dp"
+        grid:selected_height="8dp"
+        grid:unselected_width="4dp"
+        grid:unselected_height="4dp"
         android:layout_marginBottom="20dp"
         />
+
     <ListView
         android:layout_below="@+id/slider"
         android:id="@+id/transformers"

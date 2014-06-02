@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <com.daimajia.slider.library.Tricks.InfiniteViewPager
@@ -12,18 +13,22 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:paddingBottom="10dp"
+        android:gravity="center"
+        custom:shape="oval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <com.daimajia.slider.library.Indicators.PagerIndicator
         android:id="@+id/default_bottom_right_indicator"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:gravity="center"
         android:paddingBottom="10dp"
         android:paddingRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <com.daimajia.slider.library.Indicators.PagerIndicator
         android:id="@+id/default_bottom_left_indicator"
+        android:gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:paddingBottom="10dp"
@@ -32,6 +37,7 @@
         android:layout_height="wrap_content"/>
     <com.daimajia.slider.library.Indicators.PagerIndicator
         android:id="@+id/default_center_top_indicator"
+        android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:paddingTop="10dp"
@@ -40,6 +46,7 @@
     <com.daimajia.slider.library.Indicators.PagerIndicator
         android:id="@+id/default_center_top_right_indicator"
         android:layout_alignParentTop="true"
+        android:gravity="center"
         android:layout_alignParentRight="true"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
@@ -48,6 +55,7 @@
     <com.daimajia.slider.library.Indicators.PagerIndicator
         android:id="@+id/default_center_top_left_indicator"
         android:layout_alignParentTop="true"
+        android:gravity="center"
         android:layout_alignParentLeft="true"
         android:paddingTop="10dp"
         android:paddingLeft="10dp"

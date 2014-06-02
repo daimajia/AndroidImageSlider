@@ -20,7 +20,7 @@ public class DefaultSliderView extends BaseSliderView{
 
     @Override
     public View getView() {
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.slider_layout_default,null);
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.render_type_default,null);
         ImageView target = (ImageView)v.findViewById(R.id.daimajia_slider_image);
 
         loadImage(target);

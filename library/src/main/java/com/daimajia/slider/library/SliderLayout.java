@@ -2,9 +2,6 @@ package com.daimajia.slider.library;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
@@ -16,12 +13,10 @@ import android.widget.RelativeLayout;
 
 import com.daimajia.slider.library.Animations.BaseAnimationInterface;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
-import com.daimajia.slider.library.Tricks.InfinitePagerAdapter;
-import com.daimajia.slider.library.Tricks.InfiniteViewPager;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.Transformers.BaseTransformer;
 import com.daimajia.slider.library.Transformers.AccordionTransformer;
 import com.daimajia.slider.library.Transformers.BackgroundToForegroundTransformer;
+import com.daimajia.slider.library.Transformers.BaseTransformer;
 import com.daimajia.slider.library.Transformers.CubeInTransformer;
 import com.daimajia.slider.library.Transformers.DefaultTransformer;
 import com.daimajia.slider.library.Transformers.DepthPageTransformer;
@@ -36,8 +31,10 @@ import com.daimajia.slider.library.Transformers.TabletTransformer;
 import com.daimajia.slider.library.Transformers.ZoomInTransformer;
 import com.daimajia.slider.library.Transformers.ZoomOutSlideTransformer;
 import com.daimajia.slider.library.Transformers.ZoomOutTransformer;
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.daimajia.slider.library.Tricks.FixedSpeedScroller;
+import com.daimajia.slider.library.Tricks.InfinitePagerAdapter;
+import com.daimajia.slider.library.Tricks.InfiniteViewPager;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 import java.lang.reflect.Field;
 import java.util.Timer;
@@ -105,15 +102,6 @@ public class SliderLayout extends RelativeLayout{
      */
     private PagerIndicator mIndicator;
 
-    /**
-     * The indicator selected status drawable.
-     */
-    private int mSelectedDrawableId;
-
-    /**
-     * The indicator unselected status drawable.
-     */
-    private int mUnselectedDrawableId;
 
     /**
      * A timer and a TimerTask using to cycle the {@link com.daimajia.slider.library.Tricks.ViewPagerEx}.
@@ -145,10 +133,12 @@ public class SliderLayout extends RelativeLayout{
      */
     private int mTransformerSpan;
 
+    private boolean mAutoCycle;
+
     /**
      * Visibility of {@link com.daimajia.slider.library.Indicators.PagerIndicator}
      */
-    private IndicatorVisibility mIndicatorVisibility = IndicatorVisibility.Visible;
+    private PagerIndicator.IndicatorVisibility mIndicatorVisibility = PagerIndicator.IndicatorVisibility.Visible;
 
     /**
      * {@link com.daimajia.slider.library.Tricks.ViewPagerEx} 's transformer
@@ -161,30 +151,15 @@ public class SliderLayout extends RelativeLayout{
     private BaseAnimationInterface mCustomAnimation;
 
     /**
-     * indicator selected status color read from xml
-     */
-    private int mIndicatorSelectedColor;
-
-    /**
-     * indicator selected status color read from xml
-     */
-    private int mIndicatorUnSelectedColor;
-
-    /**
      * {@link com.daimajia.slider.library.Indicators.PagerIndicator} shape, rect or oval.
      */
-    private int mIndicatorShape;
-
-    private enum Shape{
-        Oval,Rectangle
-    }
 
     public SliderLayout(Context context) {
         this(context,null);
     }
 
     public SliderLayout(Context context, AttributeSet attrs) {
-        this(context,attrs,R.attr.imageSliderStyle);
+        this(context,attrs,R.attr.SliderStyle);
     }
 
     public SliderLayout(Context context, AttributeSet attrs, int defStyle) {
@@ -195,51 +170,21 @@ public class SliderLayout extends RelativeLayout{
         final TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs,R.styleable.SliderLayout,
                 defStyle,0);
 
-        mIndicatorShape = attributes.getInt(R.styleable.SliderLayout_indicator_shape,Shape.Oval.ordinal());
-
-        mTransformerSpan = attributes.getInteger(R.styleable.SliderLayout_pager_animation_span,1100);
+        mTransformerSpan = attributes.getInteger(R.styleable.SliderLayout_pager_animation_span, 1100);
         mTransformerId = attributes.getInt(R.styleable.SliderLayout_pager_animation, Transformer.Default.ordinal());
-        mUnselectedDrawableId = attributes.getResourceId(R.styleable.SliderLayout_indicator_selected_drawable, R.drawable.unselected_indicator);
-        mSelectedDrawableId = attributes.getResourceId(R.styleable.SliderLayout_indicator_unselected_drawable,R.drawable.selected_indicator);
-
+        mAutoCycle = attributes.getBoolean(R.styleable.SliderLayout_auto_cycle,true);
+        int visibility = attributes.getInt(R.styleable.SliderLayout_indicator_visibility,0);
+        for(PagerIndicator.IndicatorVisibility v: PagerIndicator.IndicatorVisibility.values()){
+            if(v.ordinal() == visibility){
+                mIndicatorVisibility = v;
+                break;
+            }
+        }
         mSliderAdapter = new SliderAdapter(mContext);
-
-        mIndicatorSelectedColor = attributes.getColor(R.styleable.SliderLayout_indicator_selected_color, Color.WHITE);
-        mIndicatorUnSelectedColor = attributes.getColor(R.styleable.SliderLayout_indicator_unselected_color,Color.argb(33,255,255,255));
-
-        if(mSelectedDrawableId == R.drawable.selected_indicator){
-            LayerDrawable selectedIndicatorDrawable = (LayerDrawable)context.getResources().getDrawable(mSelectedDrawableId);
-            GradientDrawable shape = (GradientDrawable)selectedIndicatorDrawable.findDrawableByLayerId(R.id.shape);
-            if(mIndicatorShape == Shape.Oval.ordinal()){
-                shape.setShape(GradientDrawable.OVAL);
-            }else{
-                shape.setShape(GradientDrawable.RECTANGLE);
-            }
-            shape.setColor(mIndicatorSelectedColor);
-        }
-        if(mUnselectedDrawableId == R.drawable.unselected_indicator){
-            LayerDrawable unselectedIndicatorDrawable = (LayerDrawable)context.getResources().getDrawable(mUnselectedDrawableId);
-            GradientDrawable shape = (GradientDrawable) unselectedIndicatorDrawable.findDrawableByLayerId(R.id.shape);
-            shape.setColor(mIndicatorUnSelectedColor);
-            if(mIndicatorShape == Shape.Oval.ordinal()){
-                shape.setShape(GradientDrawable.OVAL);
-            }else{
-                shape.setShape(GradientDrawable.RECTANGLE);
-            }
-            shape.setColor(mIndicatorUnSelectedColor);
-        }
-
         PagerAdapter wrappedAdapter = new InfinitePagerAdapter(mSliderAdapter);
 
         mViewPager = (InfiniteViewPager)findViewById(R.id.daimajia_slider_viewpager);
         mViewPager.setAdapter(wrappedAdapter);
-        setPagerIndicator((PagerIndicator)findViewById(R.id.default_center_bottom_indicator));
-
-        int visibility = attributes.getInt(R.styleable.SliderLayout_indicator_visibility,0);
-        if(visibility == 1){
-            mIndicatorVisibility = IndicatorVisibility.Invisible;
-            setIndicatorVisibility(mIndicatorVisibility);
-        }
 
         mViewPager.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -255,27 +200,22 @@ public class SliderLayout extends RelativeLayout{
         });
 
         attributes.recycle();
-
+        setPresetIndicator(PresetIndicators.Center_Bottom);
         setPresetTransformer(mTransformerId);
         setSliderTransformDuration(mTransformerSpan,null);
+        setIndicatorVisibility(mIndicatorVisibility);
+        if(mAutoCycle){
+            startAutoCycle();
+        }
     }
 
-    /**
-     * set ViewPager indicator.
-     * @param indicator
-     */
-    public void setPagerIndicator(PagerIndicator indicator){
+    public void setCustomIndicator(PagerIndicator indicator){
         if(mIndicator != null){
-            mSelectedDrawableId = mIndicator.getSelectedIndicatorResId();
-            mUnselectedDrawableId = mIndicator.getUnSelectedIndicatorResId();
-            mIndicator.clearSelf();
+            mIndicator.destroySelf();
         }
         mIndicator = indicator;
+        mIndicator.setIndicatorVisibility(mIndicatorVisibility);
         mIndicator.setViewPager(mViewPager);
-        mIndicator.setIndicatorStyle(mSelectedDrawableId, mUnselectedDrawableId);
-
-        setIndicatorVisibility(mIndicatorVisibility);
-
         mIndicator.redraw();
     }
 
@@ -383,17 +323,6 @@ public class SliderLayout extends RelativeLayout{
         return false;
     }
 
-
-    /**
-     * set indicators selected and unselected style.
-     * @param selectedDrawableRes
-     * @param unselectedDrawableRes
-     */
-    public void setIndicatorStyle(int selectedDrawableRes,int unselectedDrawableRes){
-        if(mIndicator != null)
-            mIndicator.setIndicatorStyle(selectedDrawableRes, unselectedDrawableRes);
-    }
-
     /**
      * set ViewPager transformer.
      * @param reverseDrawingOrder
@@ -404,6 +333,8 @@ public class SliderLayout extends RelativeLayout{
         mViewPagerTransformer.setCustomAnimationInterface(mCustomAnimation);
         mViewPager.setPageTransformer(reverseDrawingOrder,mViewPagerTransformer);
     }
+
+
 
     /**
      * set the duration between two slider changes.
@@ -558,25 +489,102 @@ public class SliderLayout extends RelativeLayout{
         setPagerTransformer(true,t);
     }
 
-    public enum IndicatorVisibility{
-        Visible,
-        Invisible;
-    };
+
 
     /**
      * Set the visibility of the indicators.
      * @param visibility
      */
-    public void setIndicatorVisibility(IndicatorVisibility visibility){
-
+    public void setIndicatorVisibility(PagerIndicator.IndicatorVisibility visibility){
         if(mIndicator == null){
             return;
         }
 
-        if(visibility.equals(IndicatorVisibility.Visible)){
-            mIndicator.setVisibility(VISIBLE);
+        mIndicator.setIndicatorVisibility(visibility);
+    }
+
+    public PagerIndicator.IndicatorVisibility getIndicatorVisibility(){
+        if(mIndicator == null){
+            return mIndicator.getIndicatorVisibility();
+        }
+        return PagerIndicator.IndicatorVisibility.Invisible;
+
+    }
+
+    /**
+     * get the {@link com.daimajia.slider.library.Indicators.PagerIndicator} instance.
+     * You can manipulate the properties of the indicator.
+     * @return
+     */
+    public PagerIndicator getPagerIndicator(){
+        return mIndicator;
+    }
+
+    public enum PresetIndicators{
+        Center_Bottom("Center_Bottom",R.id.default_center_bottom_indicator),
+        Right_Bottom("Right_Bottom",R.id.default_bottom_right_indicator),
+        Left_Bottom("Left_Bottom",R.id.default_bottom_left_indicator),
+        Center_Top("Center_Top",R.id.default_center_top_indicator),
+        Right_Top("Right_Top",R.id.default_center_top_right_indicator),
+        Left_Top("Left_Top",R.id.default_center_top_left_indicator);
+
+        private final String name;
+        private final int id;
+        private PresetIndicators(String name,int id){
+            this.name = name;
+            this.id = id;
+        }
+
+        public String toString(){
+            return name;
+        }
+
+        public int getResourceId(){
+            return id;
+        }
+    }
+    public void setPresetIndicator(PresetIndicators presetIndicator){
+        PagerIndicator pagerIndicator = (PagerIndicator)findViewById(presetIndicator.getResourceId());
+        setCustomIndicator(pagerIndicator);
+    }
+
+    private InfinitePagerAdapter getWrapperAdapter(){
+        PagerAdapter adapter = mViewPager.getAdapter();
+        if(adapter!=null){
+            return (InfinitePagerAdapter)adapter;
         }else{
-            mIndicator.setVisibility(INVISIBLE);
+            return null;
+        }
+    }
+
+    private SliderAdapter getRealAdapter(){
+        PagerAdapter adapter = mViewPager.getAdapter();
+        if(adapter!=null){
+            return ((InfinitePagerAdapter)adapter).getRealAdapter();
+        }
+        return null;
+    }
+
+    /**
+     * remove  the slider at the position. Notice: It's a not perfect method, a very small bug still exists.
+     */
+    public void removeSliderAt(int position){
+        if(getRealAdapter()!=null){
+            getRealAdapter().removeSliderAt(position);
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem(),false);
+        }
+    }
+
+    /**
+     * remove all the sliders. Notice: It's a not perfect method, a very small bug still exists.
+     */
+    public void removeAllSliders(){
+        if(getRealAdapter()!=null){
+            int count = getRealAdapter().getCount();
+            getRealAdapter().removeAllSliders();
+            //a small bug, but fixed by this trick.
+            //bug: when remove adapter's all the sliders.some caching slider still alive.
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() +  count,false);
         }
     }
 }

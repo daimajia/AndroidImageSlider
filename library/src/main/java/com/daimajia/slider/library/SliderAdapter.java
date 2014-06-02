@@ -40,6 +40,18 @@ public class SliderAdapter extends PagerAdapter implements BaseSliderView.ImageL
         }
     }
 
+    public void removeSliderAt(int position){
+        if(mImageContents.size() < position){
+            mImageContents.remove(position);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void removeAllSliders(){
+        mImageContents.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return mImageContents.size();

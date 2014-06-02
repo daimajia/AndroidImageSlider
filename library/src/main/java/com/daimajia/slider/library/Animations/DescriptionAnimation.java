@@ -48,8 +48,8 @@ public class DescriptionAnimation implements BaseAnimationInterface {
     public void onNextItemAppear(View view) {
 
         View descriptionLayout = view.findViewById(R.id.description_layout);
-        float layoutY = ViewHelper.getY(descriptionLayout);
         if(descriptionLayout!=null){
+            float layoutY = ViewHelper.getY(descriptionLayout);
             view.findViewById(R.id.description_layout).setVisibility(View.VISIBLE);
             ValueAnimator animator = ObjectAnimator.ofFloat(
                     descriptionLayout,"y",layoutY + descriptionLayout.getHeight(),

@@ -17,6 +17,7 @@ import java.io.File;
  * BaseSliderView provides some useful methods. Such loadImage, setImage,and so on.
  * I provide two example: {@link com.daimajia.slider.library.SliderTypes.DefaultSliderView} and
  * {@link com.daimajia.slider.library.SliderTypes.TextSliderView}
+ * if you want to show progressbar, you just need to set a progressbar id as @+id/loading_bar.
  */
 public abstract class BaseSliderView {
 
@@ -199,8 +200,8 @@ public abstract class BaseSliderView {
         rq.into(targetImageView,new Callback() {
             @Override
             public void onSuccess() {
-                if(bar!=null)
-                    bar.setVisibility(View.INVISIBLE);
+                if(progressBar !=null)
+                    progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -211,14 +212,14 @@ public abstract class BaseSliderView {
             }
         });
    }
-    View bar = null;
+    private View progressBar = null;
     /**
      * when you want to extends this class, you must call this method to bind click event to your view.
      * @param v
      */
     protected void bindClickEvent(View v){
         final BaseSliderView me = this;
-        bar = v.findViewById(R.id.loading_bar);
+        progressBar = v.findViewById(R.id.loading_bar);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
