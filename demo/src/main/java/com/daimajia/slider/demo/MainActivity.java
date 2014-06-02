@@ -100,6 +100,8 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
                 mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
                 mDemoSlider.setCustomAnimation(new DescriptionAnimation());
                 break;
+            case R.id.action_github:
+
         }
         return super.onOptionsItemSelected(item);
     }
