@@ -1,5 +1,7 @@
 package com.daimajia.slider.demo;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -101,7 +103,9 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
                 mDemoSlider.setCustomAnimation(new DescriptionAnimation());
                 break;
             case R.id.action_github:
-
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/daimajia/AndroidImageSlider"));
+                startActivity(browserIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
