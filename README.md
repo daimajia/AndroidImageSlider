@@ -60,8 +60,9 @@ PagerIndicator is extended from LinearLayout. It is bind with a adapter, detect 
 There are two kind indicators, `selected` status and `unselected` status.
  
 - Both properties:
-        - `shape` : oval(default) | rect , the shape of indicator (if you set your custom drawable, then this will not work).
-        - `visibility` visibile | invisible
+        
+   	- `shape` : oval(default) | rect , the shape of indicator (if you set your custom drawable, then this will not work).
+    - `visibility` visibile | invisible
  
 - Selected indicator's properties:
 	- `selected_drawable` : if you set this drawable, then the below settings will not work.
