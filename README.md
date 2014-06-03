@@ -12,7 +12,7 @@ You can easily load image from net,drawable or file. And there are many kind of 
  
 ##Usage
 
-```gradle
+```java
 	dependencies {
 	   compile 'com.daimajia.slider:library:1.0@aar'
 	}
