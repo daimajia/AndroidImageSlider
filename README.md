@@ -11,6 +11,12 @@ You can easily load image from net,drawable or file. And there are many kind of 
 [Download Apk](http://jmp.sh/K3mBLCy)
  
 ##Usage
+
+```gradle
+	dependencies {
+	   compile 'com.daimajia.slider:library:1.0@aar'
+	}
+```
  
 ```java
 <com.daimajia.slider.library.SliderLayout
