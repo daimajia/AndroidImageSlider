@@ -44,13 +44,12 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
         file_maps.put("House of Cards",R.drawable.house);
         file_maps.put("Game of Thrones", R.drawable.game_of_thrones);
 
-        for(String name : url_maps.keySet()){
+        for(String name : file_maps.keySet()){
             TextSliderView textSliderView = new TextSliderView(this);
             // initialize a SliderLayout
             textSliderView
                     .description(name)
                     .image(file_maps.get(name))
-                    .errorDisappear(true)
                     .setOnSliderClickListener(this);
 
             //add your extra information
