@@ -12,6 +12,7 @@
 # generated files
 bin/
 gen/
+Wiki/
 
 # Local configuration file (sdk path, etc)
 local.properties
