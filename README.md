@@ -12,6 +12,8 @@ You can easily load image from net,drawable or file. And there are many kind of 
  
 ##Usage
 
+[Wiki](https://github.com/daimajia/AndroidImageSlider/wiki) is under construction. :-D
+
 Step1: add dependencies in build.gradle.
 
 ```groovy
