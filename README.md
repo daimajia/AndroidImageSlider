@@ -1,4 +1,4 @@
-#Android Image Slider
+#Android Image Slider [![Build Status](https://travis-ci.org/daimajia/AndroidImageSlider.svg)](https://travis-ci.org/daimajia/AndroidImageSlider)
  
 This is an amazing image slider in Android platform. I decide to open source this because there is really not an attractive,and convenient slide widget in Android.
  
