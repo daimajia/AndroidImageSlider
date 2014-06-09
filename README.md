@@ -18,7 +18,7 @@ Step1: add dependencies in build.gradle.
 
 ```groovy
 	dependencies {
-	   compile 'com.daimajia.slider:library:1.0@aar'
+	   compile 'com.daimajia.slider:library:1.0.1@aar'
 	}
 ```
 
