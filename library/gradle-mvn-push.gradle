@@ -92,8 +92,20 @@ afterEvaluate { project ->
         sign configurations.archives
     }
 
+    task apklib(type: Zip){
+        appendix = extension = 'apklib'
+
+        from 'AndroidManifest.xml'
+        into('res') {
+            from 'res'
+        }
+        into('src') {
+            from 'src'
+        }
+    }
+
     task androidJavadocs(type: Javadoc) {
-        source = android.sourceSets.main.allJava
+        source = android.sourceSets.main
         classpath += project.files(android.getBootClasspath() .join(File.pathSeparator))
     }
 
@@ -104,11 +116,12 @@ afterEvaluate { project ->
 
     task androidSourcesJar(type: Jar) {
         classifier = 'sources'
-        from android.sourceSets.main.allSource
+        from android.sourceSets.main
     }
 
     artifacts {
         archives androidSourcesJar
-        archives androidJavadocsJar
+        //archives androidJavadocsJar
+        archives apklib 
     }
 }

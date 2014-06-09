@@ -194,38 +194,34 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     }
 
     public void setDefaultPadding(float left,float top, float right, float bottom,Unit unit){
-        if(mUserSetSelectedIndicatorResId == 0){
-            if(unit == Unit.DP){
-                mSelectedLayerDrawable.setLayerInset(0,
-                        (int)pxFromDp(left),(int)pxFromDp(top),
-                        (int)pxFromDp(right),(int)pxFromDp(bottom));
-                mUnSelectedLayerDrawable.setLayerInset(0,
-                        (int)pxFromDp(left),(int)pxFromDp(top),
-                        (int)pxFromDp(right),(int)pxFromDp(bottom));
-            }else{
-                mSelectedLayerDrawable.setLayerInset(0,
-                        (int)left,(int)top,
-                        (int)right,(int)bottom);
-                mUnSelectedLayerDrawable.setLayerInset(0,
-                        (int)left,(int)top,
-                        (int)right,(int)bottom);
-            }
+        if(unit == Unit.DP){
+            mSelectedLayerDrawable.setLayerInset(0,
+                    (int)pxFromDp(left),(int)pxFromDp(top),
+                    (int)pxFromDp(right),(int)pxFromDp(bottom));
+            mUnSelectedLayerDrawable.setLayerInset(0,
+                    (int)pxFromDp(left),(int)pxFromDp(top),
+                    (int)pxFromDp(right),(int)pxFromDp(bottom));
+        }else{
+            mSelectedLayerDrawable.setLayerInset(0,
+                    (int)left,(int)top,
+                    (int)right,(int)bottom);
+            mUnSelectedLayerDrawable.setLayerInset(0,
+                    (int)left,(int)top,
+                    (int)right,(int)bottom);
         }
     }
 
     public void setDefaultSelectedPadding(float left,float top, float right, float bottom,Unit unit){
-        if(mUserSetSelectedIndicatorResId == 0){
-            if(unit == Unit.DP){
-                mSelectedLayerDrawable.setLayerInset(0,
-                        (int)pxFromDp(left),(int)pxFromDp(top),
-                        (int)pxFromDp(right),(int)pxFromDp(bottom));
+        if(unit == Unit.DP){
+            mSelectedLayerDrawable.setLayerInset(0,
+                    (int)pxFromDp(left),(int)pxFromDp(top),
+                    (int)pxFromDp(right),(int)pxFromDp(bottom));
 
-            }else{
-                mSelectedLayerDrawable.setLayerInset(0,
-                        (int)left,(int)top,
-                        (int)right,(int)bottom);
+        }else{
+            mSelectedLayerDrawable.setLayerInset(0,
+                    (int)left,(int)top,
+                    (int)right,(int)bottom);
 
-            }
         }
     }
 
