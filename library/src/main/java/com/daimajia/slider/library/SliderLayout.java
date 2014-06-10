@@ -123,7 +123,7 @@ public class SliderLayout extends RelativeLayout{
     /**
      * If auto recover after user touch the {@link com.daimajia.slider.library.Tricks.ViewPagerEx}
      */
-    private boolean mAutoRecover;
+    private boolean mAutoRecover = true;
 
 
     private int mTransformerId;
@@ -134,6 +134,11 @@ public class SliderLayout extends RelativeLayout{
     private int mTransformerSpan;
 
     private boolean mAutoCycle;
+
+    /**
+     * the duration between animation.
+     */
+    private long mSliderDuration = 3400;
 
     /**
      * Visibility of {@link com.daimajia.slider.library.Indicators.PagerIndicator}
@@ -223,17 +228,28 @@ public class SliderLayout extends RelativeLayout{
         mSliderAdapter.addSlider(imageContent);
     }
 
+    private android.os.Handler mh = new android.os.Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mViewPager.nextItem();
+        }
+    };
+
     public void startAutoCycle(){
-        startAutoCycle(1000, 3400, true);
+        startAutoCycle(1000, mSliderDuration, mAutoRecover);
     }
 
     /**
      * start auto cycle.
      * @param delay delay time
-     * @param period period time.
-     * @param autoRecover
+     * @param duration animation duration time.
+     * @param autoRecover if recover after user touches the slider.
      */
-    public void startAutoCycle(long delay,long period,boolean autoRecover){
+    public void startAutoCycle(long delay,long duration,boolean autoRecover){
+        if(mCycleTimer != null) mCycleTimer.cancel();
+        if(mCycleTask != null) mCycleTask.cancel();
+        mSliderDuration = duration;
         mCycleTimer = new Timer();
         mAutoRecover = autoRecover;
         mCycleTask = new TimerTask() {
@@ -242,7 +258,7 @@ public class SliderLayout extends RelativeLayout{
                 mh.sendEmptyMessage(0);
             }
         };
-        mCycleTimer.schedule(mCycleTask,delay,period);
+        mCycleTimer.schedule(mCycleTask,delay,mSliderDuration);
         mCycling = true;
     }
 
@@ -258,6 +274,17 @@ public class SliderLayout extends RelativeLayout{
             if(mResumingTimer != null && mResumingTask != null){
                 recoverCycle();
             }
+        }
+    }
+
+    /**
+     * set the duration between two slider changes. the duration value must >= 500
+     * @param duration
+     */
+    public void setDuration(long duration){
+        if(duration >= 500){
+            mSliderDuration = duration;
+            startAutoCycle();
         }
     }
 
@@ -283,7 +310,6 @@ public class SliderLayout extends RelativeLayout{
      * when paused cycle, this method can weak it up.
      */
     private void recoverCycle(){
-
         if(!mAutoRecover){
             return;
         }
@@ -304,13 +330,7 @@ public class SliderLayout extends RelativeLayout{
         }
     }
 
-    private android.os.Handler mh = new android.os.Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            mViewPager.nextItem();
-        }
-    };
+
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
