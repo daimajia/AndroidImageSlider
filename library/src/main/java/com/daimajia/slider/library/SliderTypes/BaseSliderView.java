@@ -195,8 +195,8 @@ public abstract class BaseSliderView {
         if(getError() != 0){
             rq.error(getError());
         }
-        rq.fit();
-
+        rq.fit().centerCrop();
+        
         rq.into(targetImageView,new Callback() {
             @Override
             public void onSuccess() {
