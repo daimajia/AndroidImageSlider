@@ -12,12 +12,25 @@ You can easily load image from net,drawable or file. And there are many kind of 
  
 ##Usage
 
-Step1: add dependencies in build.gradle.
+Step1:
+
+If you are using Android Studio, just add a one line code to your project root `build.gralde`.
 
 ```groovy
-	dependencies {
-	   compile 'com.daimajia.slider:library:1.0.1@aar'
-	}
+dependencies{
+    compile 'com.daimajia.slider:library:1.0.1@aar'
+}
+```
+
+If you are using maven to manage your project, add below to your `pom.xml`
+
+```xml
+<dependency>
+    <groupId>com.daimajia.slider</groupId>
+    <artifactId>library</artifactId>
+    <version>1.0.1</version>
+    <type>apklib</type>
+</dependency>
 ```
 
 Step2: add `storage` and `internet` permission.
