@@ -18,7 +18,7 @@ If you are using Android Studio, just add a one line code to your project root `
 
 ```groovy
 dependencies{
-    compile 'com.daimajia.slider:library:1.0.1@aar'
+    compile 'com.daimajia.slider:library:1.0.2@aar'
 }
 ```
 
@@ -28,7 +28,7 @@ If you are using maven to manage your project, add below to your `pom.xml`
 <dependency>
     <groupId>com.daimajia.slider</groupId>
     <artifactId>library</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <type>apklib</type>
 </dependency>
 ```
