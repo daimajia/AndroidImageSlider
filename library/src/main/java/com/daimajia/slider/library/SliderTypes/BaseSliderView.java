@@ -212,6 +212,7 @@ public abstract class BaseSliderView {
             }
         });
    }
+
     private View progressBar = null;
     /**
      * when you want to extends this class, you must call this method to bind click event to your view.
