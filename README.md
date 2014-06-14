@@ -1,29 +1,29 @@
-#Android Image Slider [![Build Status](https://travis-ci.org/daimajia/AndroidImageSlider.svg)](https://travis-ci.org/daimajia/AndroidImageSlider)
+# Android Image Slider [![Build Status](https://travis-ci.org/daimajia/AndroidImageSlider.svg)](https://travis-ci.org/daimajia/AndroidImageSlider)
  
-This is an amazing image slider in Android platform. I decide to open source this because there is really not an attractive, and convenient slide widget in Android.
+This is an amazing image slider for the Android platform. I decided to open source this because there is really not an attractive, convenient slider widget in Android.
  
-You can easily load image from net, drawable or file. And there are many kind of amazing animations you can choose. :-D
+You can easily load images from an internet URL, drawable, or file. And there are many kinds of amazing animations you can choose. :-D
  
-##Demo
+## Demo
  
 ![](http://ww3.sinaimg.cn/mw690/610dc034jw1egzor66ojdg20950fknpe.gif)
 
 [Download Apk](http://jmp.sh/K3mBLCy)
  
-##Usage
+## Usage
 
-Step1:
+### Step 1
 
-If you are using Android Studio, just add a one line code to your project root `build.gradle`.
+If you are using Android Studio, just add this line code to your project root `build.gradle`.
 
 ```groovy
-dependencies{
+dependencies {
     compile 'com.daimajia.slider:library:1.0.4@aar'
 }
 ```
 
 
-If you are using maven to manage your project, add below to your `pom.xml`
+If you are using maven to manage your project, add the following to your `pom.xml`:
 
 ```xml
 <dependency>
@@ -34,14 +34,21 @@ If you are using maven to manage your project, add below to your `pom.xml`
 </dependency>
 ```
 
-Step2: add `storage` and `internet` permission.
+### Step 2
+
+Add permissions (if necessary) to your `AndroidManifest.xml`:
 
 ```xml
+<!-- if you want to load images from the internet -->
 <uses-permission android:name="android.permission.INTERNET" /> 
+
+<!-- if you want to load images from external storage -->
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 ```
 
-Step3: add layout in your xml.
+### Step 3
+
+Add the Slider to your layout:
  
 ```java
 <com.daimajia.slider.library.SliderLayout
@@ -51,7 +58,7 @@ Step3: add layout in your xml.
 />
 ```        
  
-There are some default indicators, while, if you want to custom your own indicator:
+There are some default indicators. If you want to use a provided indicator:
  
 ```java
 <com.daimajia.slider.library.Indicators.PagerIndicator
@@ -66,10 +73,10 @@ There are some default indicators, while, if you want to custom your own indicat
  
 ====
  
-##Advanced usage
+## Advanced usage
 
 Please visit [Wiki](https://github.com/daimajia/AndroidImageSlider/wiki)
  
 ##About me
  
-A student in China mainland. I love Google, love Android, love everything that is interesting. If you get any problems when using this library or you have an internship opportunity, please feel relax to [email me](mailto:daimajia@gmail.com). :-D
+I am a student in mainland China. I love Google, love Android, love everything that is interesting. If you get any problems when using this library or you have an internship opportunity, please feel free to [email me](mailto:daimajia@gmail.com). :smiley:
