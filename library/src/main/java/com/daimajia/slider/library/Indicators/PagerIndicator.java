@@ -158,20 +158,15 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         mPadding_top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_top,(int)pxFromDp(0));
         mPadding_bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_bottom,(int)pxFromDp(0));
 
-        mPadding_left = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_left,(int)pxFromDp(3));
-        mPadding_right = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_right,(int)pxFromDp(3));
-        mPadding_top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_top,(int)pxFromDp(0));
-        mPadding_bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_bottom,(int)pxFromDp(0));
+        mSelectedPadding_Left = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_left,(int)mPadding_left);
+        mSelectedPadding_Right = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_right,(int)mPadding_right);
+        mSelectedPadding_Top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_top,(int)mPadding_top);
+        mSelectedPadding_Bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_bottom,(int)mPadding_bottom);
 
-        mSelectedPadding_Left = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_left,(int)pxFromDp(3));
-        mSelectedPadding_Right = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_right,(int)pxFromDp(3));
-        mSelectedPadding_Top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_top,(int)pxFromDp(0));
-        mSelectedPadding_Bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_bottom,(int)pxFromDp(0));
-
-        mUnSelectedPadding_Left = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_left,(int)pxFromDp(3));
-        mUnSelectedPadding_Right = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_right,(int)pxFromDp(3));
-        mUnSelectedPadding_Top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_top,(int)pxFromDp(0));
-        mUnSelectedPadding_Bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_bottom,(int)pxFromDp(0));
+        mUnSelectedPadding_Left = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_left,(int)mPadding_left);
+        mUnSelectedPadding_Right = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_right,(int)mPadding_right);
+        mUnSelectedPadding_Top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_top,(int)mPadding_top);
+        mUnSelectedPadding_Bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_bottom,(int)mPadding_bottom);
 
         mSelectedLayerDrawable = new LayerDrawable(new Drawable[]{mSelectedGradientDrawable});
         mUnSelectedLayerDrawable = new LayerDrawable(new Drawable[]{mUnSelectedGradientDrawable});
@@ -183,7 +178,6 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         setDefaultUnselectedIndicatorSize(mDefaultUnSelectedWidth,mDefaultUnSelectedHeight,Unit.Px);
         setDefaultIndicatorColor(mDefaultSelectedColor, mDefaultUnSelectedColor);
         setIndicatorVisibility(mVisibility);
-        setDefaultPadding(mPadding_left,mPadding_top,mPadding_right,mPadding_bottom,Unit.Px);
         setDefaultSelectedPadding(mSelectedPadding_Left,mSelectedPadding_Top,mSelectedPadding_Right,mSelectedPadding_Bottom,Unit.Px);
         setDefaultUnSelectedPadding(mUnSelectedPadding_Left,mUnSelectedPadding_Top,mUnSelectedPadding_Right,mUnSelectedPadding_Bottom,Unit.Px);
         attributes.recycle();
@@ -194,21 +188,8 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     }
 
     public void setDefaultPadding(float left,float top, float right, float bottom,Unit unit){
-        if(unit == Unit.DP){
-            mSelectedLayerDrawable.setLayerInset(0,
-                    (int)pxFromDp(left),(int)pxFromDp(top),
-                    (int)pxFromDp(right),(int)pxFromDp(bottom));
-            mUnSelectedLayerDrawable.setLayerInset(0,
-                    (int)pxFromDp(left),(int)pxFromDp(top),
-                    (int)pxFromDp(right),(int)pxFromDp(bottom));
-        }else{
-            mSelectedLayerDrawable.setLayerInset(0,
-                    (int)left,(int)top,
-                    (int)right,(int)bottom);
-            mUnSelectedLayerDrawable.setLayerInset(0,
-                    (int)left,(int)top,
-                    (int)right,(int)bottom);
-        }
+        setDefaultSelectedPadding(left,top,right,bottom,unit);
+        setDefaultUnSelectedPadding(left,top,right,bottom,unit);
     }
 
     public void setDefaultSelectedPadding(float left,float top, float right, float bottom,Unit unit){
@@ -216,7 +197,6 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
             mSelectedLayerDrawable.setLayerInset(0,
                     (int)pxFromDp(left),(int)pxFromDp(top),
                     (int)pxFromDp(right),(int)pxFromDp(bottom));
-
         }else{
             mSelectedLayerDrawable.setLayerInset(0,
                     (int)left,(int)top,
@@ -225,19 +205,17 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         }
     }
 
-    public void setDefaultUnSelectedPadding(float left,float top, float right, float bottom,Unit unit){
-        if(mUserSetSelectedIndicatorResId == 0){
-            if(unit == Unit.DP){
-                mUnSelectedLayerDrawable.setLayerInset(0,
-                        (int)pxFromDp(left),(int)pxFromDp(top),
-                        (int)pxFromDp(right),(int)pxFromDp(bottom));
+    public void setDefaultUnSelectedPadding(float left,float top, float right, float bottom, Unit unit){
+        if(unit == Unit.DP){
+            mUnSelectedLayerDrawable.setLayerInset(0,
+                    (int)pxFromDp(left),(int)pxFromDp(top),
+                    (int)pxFromDp(right),(int)pxFromDp(bottom));
 
-            }else{
-                mUnSelectedLayerDrawable.setLayerInset(0,
-                        (int)left,(int)top,
-                        (int)right,(int)bottom);
+        }else{
+            mUnSelectedLayerDrawable.setLayerInset(0,
+                    (int)left,(int)top,
+                    (int)right,(int)bottom);
 
-            }
         }
     }
 

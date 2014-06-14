@@ -35,7 +35,13 @@
         custom:unselected_height="6dp"
         android:layout_marginBottom="20dp"
         />
-
+    <com.daimajia.slider.library.Indicators.PagerIndicator
+        android:id="@+id/custom_indicator_2"
+        style="@style/AndroidImageSlider_Magnifier_Oval_Black"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        />
     <ListView
         android:layout_below="@+id/slider"
         android:id="@+id/transformers"
