@@ -121,7 +121,7 @@ afterEvaluate { project ->
 
     artifacts {
         archives androidSourcesJar
-        //archives androidJavadocsJar
+        archives androidJavadocsJar
         archives apklib 
     }
 }
