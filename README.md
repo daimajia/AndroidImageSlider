@@ -30,6 +30,16 @@ If you are using maven to manage your project, add the following to your `pom.xm
 
 ```xml
 <dependency>
+    <groupId>com.squareup.picasso</groupId>
+    <artifactId>picasso</artifactId>
+    <version>2.3.2</version>
+</dependency>
+<dependency>
+    <groupId>com.nineoldandroids</groupId>
+    <artifactId>library</artifactId>
+    <version>2.4.0</version>
+</dependency>
+<dependency>
     <groupId>com.daimajia.slider</groupId>
     <artifactId>library</artifactId>
     <version>1.0.5</version>
