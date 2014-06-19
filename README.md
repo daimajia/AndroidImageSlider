@@ -18,6 +18,9 @@ If you are using Android Studio, just add this line code to your project root `b
 
 ```groovy
 dependencies {
+	compile "com.android.support:support-v4:+"
+    compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.0.5@aar'
 }
 ```
