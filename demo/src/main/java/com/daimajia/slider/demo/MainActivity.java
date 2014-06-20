@@ -61,7 +61,7 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(3400);
+        mDemoSlider.setDuration(4000);
         ListView l = (ListView)findViewById(R.id.transformers);
         l.setAdapter(new TransformerAdapter(this));
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -91,9 +91,11 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_custom_indicator:
+                mDemoSlider.stopAutoCycle();
                 mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
                 break;
             case R.id.action_custom_child_animation:
+                mDemoSlider.startAutoCycle();
                 mDemoSlider.setCustomAnimation(new ChildAnimationExample());
                 break;
             case R.id.action_restore_default:

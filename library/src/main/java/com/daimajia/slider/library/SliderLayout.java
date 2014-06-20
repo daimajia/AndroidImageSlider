@@ -121,10 +121,9 @@ public class SliderLayout extends RelativeLayout{
     private boolean mCycling;
 
     /**
-     * If auto recover after user touch the {@link com.daimajia.slider.library.Tricks.ViewPagerEx}
+     * Determine if auto recover after user touch the {@link com.daimajia.slider.library.Tricks.ViewPagerEx}
      */
     private boolean mAutoRecover = true;
-
 
     private int mTransformerId;
 
@@ -138,7 +137,7 @@ public class SliderLayout extends RelativeLayout{
     /**
      * the duration between animation.
      */
-    private long mSliderDuration = 3400;
+    private long mSliderDuration = 4000;
 
     /**
      * Visibility of {@link com.daimajia.slider.library.Indicators.PagerIndicator}
@@ -249,6 +248,8 @@ public class SliderLayout extends RelativeLayout{
     public void startAutoCycle(long delay,long duration,boolean autoRecover){
         if(mCycleTimer != null) mCycleTimer.cancel();
         if(mCycleTask != null) mCycleTask.cancel();
+        if(mResumingTask != null) mResumingTask.cancel();
+        if(mResumingTimer != null) mResumingTimer.cancel();
         mSliderDuration = duration;
         mCycleTimer = new Timer();
         mAutoRecover = autoRecover;
@@ -260,6 +261,7 @@ public class SliderLayout extends RelativeLayout{
         };
         mCycleTimer.schedule(mCycleTask,delay,mSliderDuration);
         mCycling = true;
+        mAutoCycle = true;
     }
 
     /**
@@ -304,13 +306,14 @@ public class SliderLayout extends RelativeLayout{
         if(mResumingTask!=null){
             mResumingTask.cancel();
         }
+        mAutoCycle = false;
     }
 
     /**
      * when paused cycle, this method can weak it up.
      */
     private void recoverCycle(){
-        if(!mAutoRecover){
+        if(!mAutoRecover || !mAutoCycle){
             return;
         }
 
