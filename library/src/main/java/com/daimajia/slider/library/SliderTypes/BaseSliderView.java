@@ -47,6 +47,15 @@ public abstract class BaseSliderView {
 
     private String mDescription;
 
+    /**
+     * Scale type of the image.
+     */
+    private ScaleType mScaleType = ScaleType.Fit;
+
+    public enum ScaleType{
+        CenterCrop, CenterInside, Fit, FitCenterCrop
+    }
+
     protected BaseSliderView(Context context) {
         mContext = context;
         this.mBundle = new Bundle();
@@ -195,7 +204,18 @@ public abstract class BaseSliderView {
         if(getError() != 0){
             rq.error(getError());
         }
-        rq.fit();
+
+        switch (mScaleType){
+            case Fit:
+                rq.fit();
+                break;
+            case CenterCrop:
+                rq.fit().centerCrop();
+                break;
+            case CenterInside:
+                rq.fit().centerInside();
+                break;
+        }
 
         rq.into(targetImageView,new Callback() {
             @Override
@@ -212,6 +232,17 @@ public abstract class BaseSliderView {
             }
         });
    }
+
+
+
+    public BaseSliderView setScaleType(ScaleType type){
+        mScaleType = type;
+        return this;
+    }
+
+    public ScaleType getScaleType(){
+        return mScaleType;
+    }
 
     private View progressBar = null;
     /**
