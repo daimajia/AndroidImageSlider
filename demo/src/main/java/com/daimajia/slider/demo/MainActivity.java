@@ -91,11 +91,9 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_custom_indicator:
-                mDemoSlider.stopAutoCycle();
                 mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
                 break;
             case R.id.action_custom_child_animation:
-                mDemoSlider.startAutoCycle();
                 mDemoSlider.setCustomAnimation(new ChildAnimationExample());
                 break;
             case R.id.action_restore_default:
