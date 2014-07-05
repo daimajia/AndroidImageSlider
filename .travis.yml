@@ -3,10 +3,6 @@ android:
   components:
     - build-tools-20
 
-branches:
-  only:
-    - travis
-
 notifications:
   email: true
 
