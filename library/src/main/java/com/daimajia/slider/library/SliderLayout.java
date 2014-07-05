@@ -589,6 +589,20 @@ public class SliderLayout extends RelativeLayout{
     }
 
     /**
+     * get current slider.
+     * @return
+     */
+    public BaseSliderView getCurrentSlider(){
+
+        if(getRealAdapter() == null)
+            return null;
+
+        int count = getRealAdapter().getCount();
+        int realCount = mViewPager.getCurrentItem() % count;
+        return  getRealAdapter().getSliderView(realCount);
+    }
+
+    /**
      * remove  the slider at the position. Notice: It's a not perfect method, a very small bug still exists.
      */
     public void removeSliderAt(int position){

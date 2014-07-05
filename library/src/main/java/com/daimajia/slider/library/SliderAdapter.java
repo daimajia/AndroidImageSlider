@@ -28,6 +28,14 @@ public class SliderAdapter extends PagerAdapter implements BaseSliderView.ImageL
         notifyDataSetChanged();
     }
 
+    public BaseSliderView getSliderView(int position){
+        if(position < 0 || position >= mImageContents.size()){
+            return null;
+        }else{
+            return mImageContents.get(position);
+        }
+    }
+
     @Override
     public int getItemPosition(Object object) {
         return POSITION_NONE;
