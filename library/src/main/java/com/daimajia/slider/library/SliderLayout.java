@@ -130,7 +130,7 @@ public class SliderLayout extends RelativeLayout{
     /**
      * {@link com.daimajia.slider.library.Tricks.ViewPagerEx} transformer time span.
      */
-    private int mTransformerSpan;
+    private int mTransformerSpan = 1100;
 
     private boolean mAutoCycle;
 
