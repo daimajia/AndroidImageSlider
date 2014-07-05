@@ -8,7 +8,7 @@ You can easily load images from an internet URL, drawable, or file. And there ar
  
 ![](http://ww3.sinaimg.cn/mw690/610dc034jw1egzor66ojdg20950fknpe.gif)
 
-[Download Apk](http://jmp.sh/K3mBLCy)
+[Download Apk](https://github.com/daimajia/AndroidImageSlider/releases/download/v1.0.8/demo-1.0.8.apk)
  
 ## Usage
 
@@ -19,9 +19,9 @@ If you are using Android Studio, just add this line code to your project root `b
 ```groovy
 dependencies {
 	compile "com.android.support:support-v4:+"
-    compile 'com.squareup.picasso:picasso:2.3.2'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.daimajia.slider:library:1.0.7@aar'
+    	compile 'com.squareup.picasso:picasso:2.3.2'
+    	compile 'com.nineoldandroids:library:2.4.0'
+    	compile 'com.daimajia.slider:library:1.0.7@aar'
 }
 ```
 
