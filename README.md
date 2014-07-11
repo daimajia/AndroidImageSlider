@@ -21,7 +21,7 @@ dependencies {
 	compile "com.android.support:support-v4:+"
     	compile 'com.squareup.picasso:picasso:2.3.2'
     	compile 'com.nineoldandroids:library:2.4.0'
-    	compile 'com.daimajia.slider:library:1.0.8@aar'
+    	compile 'com.daimajia.slider:library:1.0.9@aar'
 }
 ```
 
@@ -42,7 +42,7 @@ If you are using maven to manage your project, add the following to your `pom.xm
 <dependency>
     <groupId>com.daimajia.slider</groupId>
     <artifactId>library</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <type>apklib</type>
 </dependency>
 ```
