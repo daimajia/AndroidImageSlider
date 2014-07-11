@@ -14,7 +14,7 @@ import java.io.File;
 
 /**
  * When you want to make your own slider view, you must extends from this class.
- * BaseSliderView provides some useful methods. Such loadImage, setImage,and so on.
+ * BaseSliderView provides some useful methods.
  * I provide two example: {@link com.daimajia.slider.library.SliderTypes.DefaultSliderView} and
  * {@link com.daimajia.slider.library.SliderTypes.TextSliderView}
  * if you want to show progressbar, you just need to set a progressbar id as @+id/loading_bar.
@@ -173,11 +173,21 @@ public abstract class BaseSliderView {
     }
 
     /**
-     * when you want to extends this class, please use this method to load a image to a imageview.
-     * @param targetImageView
+     * When you want to implement your own slider view, please call this method in the end in `getView()` method
+     * @param v the whole view
+     * @param targetImageView where to place image
      */
-    protected void loadImage(ImageView targetImageView){
+    protected void bindEventAndShow(final View v, ImageView targetImageView){
         final BaseSliderView me = this;
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            if(mOnSliderClickListener != null){
+                mOnSliderClickListener.onSliderClick(me);
+            }
+            }
+        });
 
         mLoadListener.onStart(me);
 
@@ -220,8 +230,9 @@ public abstract class BaseSliderView {
         rq.into(targetImageView,new Callback() {
             @Override
             public void onSuccess() {
-                if(progressBar !=null)
-                    progressBar.setVisibility(View.INVISIBLE);
+                if(v.findViewById(R.id.loading_bar) != null){
+                    v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -242,24 +253,6 @@ public abstract class BaseSliderView {
 
     public ScaleType getScaleType(){
         return mScaleType;
-    }
-
-    private View progressBar = null;
-    /**
-     * when you want to extends this class, you must call this method to bind click event to your view.
-     * @param v
-     */
-    protected void bindClickEvent(View v){
-        final BaseSliderView me = this;
-        progressBar = v.findViewById(R.id.loading_bar);
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mOnSliderClickListener != null){
-                    mOnSliderClickListener.onSliderClick(me);
-                }
-            }
-        });
     }
 
     /**
