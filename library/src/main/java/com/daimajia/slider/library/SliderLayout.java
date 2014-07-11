@@ -286,7 +286,9 @@ public class SliderLayout extends RelativeLayout{
     public void setDuration(long duration){
         if(duration >= 500){
             mSliderDuration = duration;
-            startAutoCycle();
+            if(mAutoCycle && mCycling){
+                startAutoCycle();
+            }
         }
     }
 
@@ -307,6 +309,7 @@ public class SliderLayout extends RelativeLayout{
             mResumingTask.cancel();
         }
         mAutoCycle = false;
+        mCycling = false;
     }
 
     /**
@@ -329,7 +332,7 @@ public class SliderLayout extends RelativeLayout{
                     startAutoCycle();
                 }
             };
-            mResumingTimer.schedule(mResumingTask,6000);
+            mResumingTimer.schedule(mResumingTask, 6000);
         }
     }
 
