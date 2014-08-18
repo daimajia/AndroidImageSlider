@@ -189,6 +189,9 @@ public abstract class BaseSliderView {
             }
         });
 
+        if (targetImageView == null)
+            return;
+
         mLoadListener.onStart(me);
 
         Picasso p = Picasso.with(mContext);
