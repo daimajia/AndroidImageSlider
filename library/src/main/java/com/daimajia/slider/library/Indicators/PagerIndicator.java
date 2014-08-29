@@ -178,46 +178,46 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         setDefaultUnselectedIndicatorSize(mDefaultUnSelectedWidth,mDefaultUnSelectedHeight,Unit.Px);
         setDefaultIndicatorColor(mDefaultSelectedColor, mDefaultUnSelectedColor);
         setIndicatorVisibility(mVisibility);
-        setDefaultSelectedPadding(mSelectedPadding_Left,mSelectedPadding_Top,mSelectedPadding_Right,mSelectedPadding_Bottom,Unit.Px);
-        setDefaultUnSelectedPadding(mUnSelectedPadding_Left,mUnSelectedPadding_Top,mUnSelectedPadding_Right,mUnSelectedPadding_Bottom,Unit.Px);
+//        setDefaultSelectedPadding(mSelectedPadding_Left,mSelectedPadding_Top,mSelectedPadding_Right,mSelectedPadding_Bottom,Unit.Px);
+//        setDefaultUnSelectedPadding(mUnSelectedPadding_Left,mUnSelectedPadding_Top,mUnSelectedPadding_Right,mUnSelectedPadding_Bottom,Unit.Px);
         attributes.recycle();
     }
 
     public enum Shape{
         Oval,Rectangle
     }
-
-    public void setDefaultPadding(float left,float top, float right, float bottom,Unit unit){
-        setDefaultSelectedPadding(left,top,right,bottom,unit);
-        setDefaultUnSelectedPadding(left,top,right,bottom,unit);
-    }
-
-    public void setDefaultSelectedPadding(float left,float top, float right, float bottom,Unit unit){
-        if(unit == Unit.DP){
-            mSelectedLayerDrawable.setLayerInset(0,
-                    (int)pxFromDp(left),(int)pxFromDp(top),
-                    (int)pxFromDp(right),(int)pxFromDp(bottom));
-        }else{
-            mSelectedLayerDrawable.setLayerInset(0,
-                    (int)left,(int)top,
-                    (int)right,(int)bottom);
-
-        }
-    }
-
-    public void setDefaultUnSelectedPadding(float left,float top, float right, float bottom, Unit unit){
-        if(unit == Unit.DP){
-            mUnSelectedLayerDrawable.setLayerInset(0,
-                    (int)pxFromDp(left),(int)pxFromDp(top),
-                    (int)pxFromDp(right),(int)pxFromDp(bottom));
-
-        }else{
-            mUnSelectedLayerDrawable.setLayerInset(0,
-                    (int)left,(int)top,
-                    (int)right,(int)bottom);
-
-        }
-    }
+//
+//    public void setDefaultPadding(float left,float top, float right, float bottom,Unit unit){
+//        setDefaultSelectedPadding(left,top,right,bottom,unit);
+//        setDefaultUnSelectedPadding(left,top,right,bottom,unit);
+//    }
+//
+//    public void setDefaultSelectedPadding(float left,float top, float right, float bottom,Unit unit){
+//        if(unit == Unit.DP){
+//            mSelectedLayerDrawable.setLayerInset(0,
+//                    (int)pxFromDp(left),(int)pxFromDp(top),
+//                    (int)pxFromDp(right),(int)pxFromDp(bottom));
+//        }else{
+//            mSelectedLayerDrawable.setLayerInset(0,
+//                    (int)left,(int)top,
+//                    (int)right,(int)bottom);
+//
+//        }
+//    }
+//
+//    public void setDefaultUnSelectedPadding(float left,float top, float right, float bottom, Unit unit){
+//        if(unit == Unit.DP){
+//            mUnSelectedLayerDrawable.setLayerInset(0,
+//                    (int)pxFromDp(left),(int)pxFromDp(top),
+//                    (int)pxFromDp(right),(int)pxFromDp(bottom));
+//
+//        }else{
+//            mUnSelectedLayerDrawable.setLayerInset(0,
+//                    (int)left,(int)top,
+//                    (int)right,(int)bottom);
+//
+//        }
+//    }
 
     /**
      * if you are using the default indicator, this method will help you to set the shape of
@@ -392,9 +392,13 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         }
 
 
-        for(int i =0 ;i<mItemCount;i++){
+        for(int i =0 ;i< mItemCount; i++){
             ImageView indicator = new ImageView(mContext);
             indicator.setImageDrawable(mUnselectedDrawable);
+            indicator.setPadding((int)mUnSelectedPadding_Left,
+                    (int)mUnSelectedPadding_Top,
+                    (int)mUnSelectedPadding_Right,
+                    (int)mUnSelectedPadding_Bottom);
             addView(indicator);
             mIndicators.add(indicator);
         }
@@ -427,6 +431,10 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
                 for(int i =0 ; i< count - mItemCount;i++){
                     ImageView indicator = new ImageView(mContext);
                     indicator.setImageDrawable(mUnselectedDrawable);
+                    indicator.setPadding((int)mUnSelectedPadding_Left,
+                            (int)mUnSelectedPadding_Top,
+                            (int)mUnSelectedPadding_Right,
+                            (int)mUnSelectedPadding_Bottom);
                     addView(indicator);
                     mIndicators.add(indicator);
                 }
@@ -450,10 +458,22 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     private void setItemAsSelected(int position){
         if(mPreviousSelectedIndicator != null){
             mPreviousSelectedIndicator.setImageDrawable(mUnselectedDrawable);
+            mPreviousSelectedIndicator.setPadding(
+                    (int)mUnSelectedPadding_Left,
+                    (int)mUnSelectedPadding_Top,
+                    (int)mUnSelectedPadding_Right,
+                    (int)mUnSelectedPadding_Bottom
+            );
         }
         ImageView currentSelected = (ImageView)getChildAt(position + 1);
         if(currentSelected != null){
             currentSelected.setImageDrawable(mSelectedDrawable);
+            currentSelected.setPadding(
+                    (int)mSelectedPadding_Left,
+                    (int)mSelectedPadding_Top,
+                    (int)mSelectedPadding_Right,
+                    (int)mSelectedPadding_Bottom
+            );
             mPreviousSelectedIndicator = currentSelected;
         }
         mPreviousSelectedPosition = position;
