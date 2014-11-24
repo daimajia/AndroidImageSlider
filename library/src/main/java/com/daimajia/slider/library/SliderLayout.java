@@ -640,4 +640,26 @@ public class SliderLayout extends RelativeLayout{
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() +  count,false);
         }
     }
+
+    /**
+     * move to prev slide.
+     */
+    public void movePrevPosition() {
+
+        if (getRealAdapter() == null)
+            throw new IllegalStateException("You did not set a slider adapter");
+
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+    }
+
+    /**
+     * move to next slide.
+     */
+    public void moveNextPosition() {
+
+        if (getRealAdapter() == null)
+            throw new IllegalStateException("You did not set a slider adapter");
+
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
+    }
 }
