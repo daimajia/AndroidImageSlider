@@ -231,7 +231,7 @@ public class SliderLayout extends RelativeLayout{
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            mViewPager.nextItem();
+            moveNextPosition(true);
         }
     };
 
@@ -642,24 +642,51 @@ public class SliderLayout extends RelativeLayout{
     }
 
     /**
+     *set current slider
+     * @param position
+     */
+    public void setCurrentPosition(int position, boolean smooth) {
+        if (getRealAdapter() == null)
+            throw new IllegalStateException("You did not set a slider adapter");
+        if(position >= getRealAdapter().getCount()){
+            throw new IllegalStateException("Item position is not exist");
+        }
+        int p = mViewPager.getCurrentItem() % getRealAdapter().getCount();
+        int n = (position - p) + mViewPager.getCurrentItem();
+        mViewPager.setCurrentItem(n, smooth);
+    }
+
+    public void setCurrentPosition(int position) {
+        setCurrentPosition(position, true);
+    }
+
+    /**
      * move to prev slide.
      */
-    public void movePrevPosition() {
+    public void movePrevPosition(boolean smooth) {
 
         if (getRealAdapter() == null)
             throw new IllegalStateException("You did not set a slider adapter");
 
-        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, smooth);
+    }
+
+    public void movePrevPosition(){
+        movePrevPosition(true);
     }
 
     /**
      * move to next slide.
      */
-    public void moveNextPosition() {
+    public void moveNextPosition(boolean smooth) {
 
         if (getRealAdapter() == null)
             throw new IllegalStateException("You did not set a slider adapter");
 
-        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, smooth);
+    }
+
+    public void moveNextPosition() {
+        moveNextPosition(true);
     }
 }

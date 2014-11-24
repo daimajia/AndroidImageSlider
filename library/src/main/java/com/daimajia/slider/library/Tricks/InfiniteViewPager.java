@@ -22,32 +22,6 @@ public class InfiniteViewPager extends ViewPagerEx {
     @Override
     public void setAdapter(PagerAdapter adapter) {
         super.setAdapter(adapter);
-        // offset first element so that we can scroll to the left
-        setCurrentItem(0);
-    }
-
-    @Override
-    public void setCurrentItem(int item) {
-        // offset the current item to ensure there is space to scroll
-        item = getOffsetAmount() + (item % getAdapter().getCount());
-        super.setCurrentItem(item);
-
-    }
-    public void nextItem(){
-        super.setCurrentItem(getCurrentItem() + 1);
-    }
-
-    private int getOffsetAmount() {
-        if (getAdapter() instanceof InfinitePagerAdapter) {
-            InfinitePagerAdapter infAdapter = (InfinitePagerAdapter) getAdapter();
-            // allow for 100 back cycles from the beginning
-            // should be enough to create an illusion of infinity
-            // warning: scrolling to very high values (1,000,000+) results in
-            // strange drawing behaviour
-            return infAdapter.getRealCount() * 100;
-        } else {
-            return 0;
-        }
     }
 
 }
