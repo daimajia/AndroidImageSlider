@@ -243,6 +243,9 @@ public abstract class BaseSliderView {
                 if(mLoadListener != null){
                     mLoadListener.onEnd(false,me);
                 }
+                if(v.findViewById(R.id.loading_bar) != null){
+                    v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
+                }
             }
         });
    }
