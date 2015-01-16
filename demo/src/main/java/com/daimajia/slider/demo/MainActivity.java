@@ -32,13 +32,13 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
         setContentView(R.layout.activity_main);
         mDemoSlider = (SliderLayout)findViewById(R.id.slider);
 
-        HashMap<String,String> url_maps = new HashMap<String, String>();
+        HashMap<String,String> url_maps = new HashMap<>();
         url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
         url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
         url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
         url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
 
-        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
+        HashMap<String,Integer> file_maps = new HashMap<>();
         file_maps.put("Hannibal",R.drawable.hannibal);
         file_maps.put("Big Bang Theory",R.drawable.bigbang);
         file_maps.put("House of Cards",R.drawable.house);
@@ -59,10 +59,12 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
 
            mDemoSlider.addSlider(textSliderView);
         }
+
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(4000);
+
         ListView l = (ListView)findViewById(R.id.transformers);
         l.setAdapter(new TransformerAdapter(this));
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -72,8 +74,6 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
                 Toast.makeText(MainActivity.this, ((TextView) view).getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     @Override
@@ -106,6 +106,7 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
                 startActivity(browserIntent);
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }
