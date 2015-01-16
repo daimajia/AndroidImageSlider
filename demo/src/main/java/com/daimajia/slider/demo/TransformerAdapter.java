@@ -35,7 +35,7 @@ public class TransformerAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView t = (TextView)LayoutInflater.from(mContext).inflate(R.layout.item,null);
+        TextView t = (TextView)LayoutInflater.from(mContext).inflate(R.layout.item, parent, false);
         t.setText(getItem(position).toString());
         return t;
     }
