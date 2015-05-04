@@ -192,7 +192,9 @@ public abstract class BaseSliderView {
         if (targetImageView == null)
             return;
 
-        mLoadListener.onStart(me);
+        if (mLoadListener != null) {
+            mLoadListener.onStart(me);
+        }
 
         Picasso p = Picasso.with(mContext);
         RequestCreator rq = null;
