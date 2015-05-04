@@ -58,7 +58,6 @@ public abstract class BaseSliderView {
 
     protected BaseSliderView(Context context) {
         mContext = context;
-        this.mBundle = new Bundle();
     }
 
     /**
@@ -138,6 +137,16 @@ public abstract class BaseSliderView {
         return this;
     }
 
+    /**
+     * lets users add a bundle of additional information
+     * @param bundle
+     * @return
+     */
+    public BaseSliderView bundle(Bundle bundle){
+        mBundle = bundle;
+        return this;
+    }
+
     public String getUrl(){
         return mUrl;
     }
@@ -192,7 +201,9 @@ public abstract class BaseSliderView {
         if (targetImageView == null)
             return;
 
-        mLoadListener.onStart(me);
+        if (mLoadListener != null) {
+            mLoadListener.onStart(me);
+        }
 
         Picasso p = Picasso.with(mContext);
         RequestCreator rq = null;
