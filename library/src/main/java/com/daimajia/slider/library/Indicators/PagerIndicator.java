@@ -27,6 +27,18 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     private Context mContext;
 
     /**
+     * Expose the Page Change Listener
+     * can be accessed:  slider.getPagerIndicator().setOnPageChangeListener(new ViewPagerEx.OnPageChangeListener() {});
+     */
+    private ViewPagerEx.OnPageChangeListener onPageChangeListener;
+    public ViewPagerEx.OnPageChangeListener getOnPageChangeListener() {
+        return onPageChangeListener;
+    }
+    public void setOnPageChangeListener(ViewPagerEx.OnPageChangeListener onPageChangeListener) {
+        this.onPageChangeListener = onPageChangeListener;
+    }
+
+    /**
      * bind this Indicator with {@link com.daimajia.slider.library.Tricks.ViewPagerEx}
      */
     private ViewPagerEx mPager;
@@ -452,11 +464,14 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
     @Override
     public void onPageSelected(int position) {
-         if(mItemCount == 0){
+        if(mItemCount == 0){
             return;
         }
         int n = position % mItemCount;
         setItemAsSelected(n - 1);
+        if(getOnPageChangeListener() != null){
+            getOnPageChangeListener().onPageSelected(n);
+        }
     }
     @Override
     public void onPageScrollStateChanged(int state) {
