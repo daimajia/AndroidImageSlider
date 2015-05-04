@@ -58,7 +58,6 @@ public abstract class BaseSliderView {
 
     protected BaseSliderView(Context context) {
         mContext = context;
-        this.mBundle = new Bundle();
     }
 
     /**
@@ -135,6 +134,16 @@ public abstract class BaseSliderView {
                     "you only have permission to call it once");
         }
         mRes = res;
+        return this;
+    }
+
+    /**
+     * lets users add a bundle of additional information
+     * @param bundle
+     * @return
+     */
+    public BaseSliderView bundle(Bundle bundle){
+        mBundle = bundle;
         return this;
     }
 
