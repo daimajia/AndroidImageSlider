@@ -1,18 +1,17 @@
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion "20"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         minSdkVersion 8
-        targetSdkVersion 20
+        targetSdkVersion 22
         versionCode 10
         versionName "1.0.9"
     }
     buildTypes {
         release {
-            runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
@@ -23,8 +22,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:20.+'
-    compile "com.android.support:support-v4:20.0.+"
+    compile 'com.android.support:appcompat-v7:22.+'
+    compile "com.android.support:support-v4:22.+"
     compile 'com.squareup.picasso:picasso:+'
     compile 'com.nineoldandroids:library:+'
 }
