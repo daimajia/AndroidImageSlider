@@ -455,8 +455,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
          if(mItemCount == 0){
             return;
         }
-        int n = position % mItemCount;
-        setItemAsSelected(n - 1);
+        setItemAsSelected(position-1);
     }
     @Override
     public void onPageScrollStateChanged(int state) {

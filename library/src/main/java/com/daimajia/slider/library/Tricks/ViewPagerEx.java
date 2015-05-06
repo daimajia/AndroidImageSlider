@@ -208,7 +208,7 @@ public class ViewPagerEx extends ViewGroup{
     private boolean mCalledSuper;
     private int mDecorChildCount;
 
-    private OnPageChangeListener mOnPageChangeListener;
+    private ArrayList<OnPageChangeListener> mOnPageChangeListeners = new ArrayList<>();
     private OnPageChangeListener mInternalPageChangeListener;
     private OnAdapterChangeListener mAdapterChangeListener;
     private PageTransformer mPageTransformer;
@@ -305,6 +305,21 @@ public class ViewPagerEx extends ViewGroup{
         }
     }
 
+    private void setOnPageChanged(int position) {
+        for (OnPageChangeListener eachListener : mOnPageChangeListeners) {
+            if (eachListener != null) {
+                InfinitePagerAdapter infiniteAdapter = (InfinitePagerAdapter)mAdapter;
+                if (infiniteAdapter.getRealCount() == 0) {
+                    return;
+                }
+                int n = position % infiniteAdapter.getRealCount();
+                eachListener.onPageSelected(n);
+            }
+        }
+        if (mInternalPageChangeListener != null) {
+            mInternalPageChangeListener.onPageSelected(position);
+        }
+    }
     /**
      * A PageTransformer is invoked whenever a visible/attached page is scrolled.
      * This offers an opportunity for the application to apply a custom transformation
@@ -394,8 +409,10 @@ public class ViewPagerEx extends ViewGroup{
             // PageTransformers can do complex things that benefit from hardware layers.
             enableLayers(newState != SCROLL_STATE_IDLE);
         }
-        if (mOnPageChangeListener != null) {
-            mOnPageChangeListener.onPageScrollStateChanged(newState);
+        for (OnPageChangeListener eachListener : mOnPageChangeListeners) {
+            if (eachListener != null) {
+                eachListener.onPageScrollStateChanged(newState);
+            }
         }
     }
 
@@ -539,12 +556,7 @@ public class ViewPagerEx extends ViewGroup{
             // We don't have any idea how big we are yet and shouldn't have any pages either.
             // Just set things up and let the pending layout handle things.
             mCurItem = item;
-            if (dispatchSelected && mOnPageChangeListener != null) {
-                mOnPageChangeListener.onPageSelected(item);
-            }
-            if (dispatchSelected && mInternalPageChangeListener != null) {
-                mInternalPageChangeListener.onPageSelected(item);
-            }
+            setOnPageChanged(item);
             requestLayout();
         } else {
             populate(item);
@@ -563,18 +575,12 @@ public class ViewPagerEx extends ViewGroup{
         }
         if (smoothScroll) {
             smoothScrollTo(destX, 0, velocity);
-            if (dispatchSelected && mOnPageChangeListener != null) {
-                mOnPageChangeListener.onPageSelected(item);
-            }
-            if (dispatchSelected && mInternalPageChangeListener != null) {
-                mInternalPageChangeListener.onPageSelected(item);
+            if (dispatchSelected) {
+                setOnPageChanged(item);
             }
         } else {
-            if (dispatchSelected && mOnPageChangeListener != null) {
-                mOnPageChangeListener.onPageSelected(item);
-            }
-            if (dispatchSelected && mInternalPageChangeListener != null) {
-                mInternalPageChangeListener.onPageSelected(item);
+            if (dispatchSelected) {
+                setOnPageChanged(item);
             }
             completeScroll(false);
             scrollTo(destX, 0);
@@ -589,7 +595,9 @@ public class ViewPagerEx extends ViewGroup{
      * @param listener Listener to set
      */
     public void setOnPageChangeListener(OnPageChangeListener listener) {
-        mOnPageChangeListener = listener;
+        if (!mOnPageChangeListeners.contains(listener)) {
+            mOnPageChangeListeners.add(listener);
+        }
     }
 
     /**
@@ -1706,9 +1714,10 @@ public class ViewPagerEx extends ViewGroup{
                 }
             }
         }
-
-        if (mOnPageChangeListener != null) {
-            mOnPageChangeListener.onPageScrolled(position, offset, offsetPixels);
+        for (OnPageChangeListener eachListener : mOnPageChangeListeners) {
+            if (eachListener != null) {
+                eachListener.onPageScrolled(position, offset, offsetPixels);
+            }
         }
         if (mInternalPageChangeListener != null) {
             mInternalPageChangeListener.onPageScrolled(position, offset, offsetPixels);
