@@ -56,8 +56,8 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
                     .setOnSliderClickListener(this);
 
             //add your extra information
-            if (textSliderView.getBundle() != null)
-                textSliderView.getBundle()
+            textSliderView.bundle(new Bundle());
+            textSliderView.getBundle()
                         .putString("extra",name);
 
            mDemoSlider.addSlider(textSliderView);
