@@ -246,9 +246,6 @@ public class SliderLayout extends RelativeLayout{
      * @param autoRecover if recover after user touches the slider.
      */
     public void startAutoCycle(long delay,long duration,boolean autoRecover){
-        if (mSliderAdapter.getCount() <= 1) {
-            return;
-        }
         if(mCycleTimer != null) mCycleTimer.cancel();
         if(mCycleTask != null) mCycleTask.cancel();
         if(mResumingTask != null) mResumingTask.cancel();
@@ -628,6 +625,7 @@ public class SliderLayout extends RelativeLayout{
         if(getRealAdapter()!=null){
             getRealAdapter().removeSliderAt(position);
             mViewPager.setCurrentItem(mViewPager.getCurrentItem(),false);
+            mIndicator.redraw();
         }
     }
 
