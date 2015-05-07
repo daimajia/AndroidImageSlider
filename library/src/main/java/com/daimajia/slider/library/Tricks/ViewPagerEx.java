@@ -589,15 +589,25 @@ public class ViewPagerEx extends ViewGroup{
     }
 
     /**
-     * Set a listener that will be invoked whenever the page changes or is incrementally
+     * Add a listener that will be invoked whenever the page changes or is incrementally
      * scrolled. See {@link OnPageChangeListener}.
      *
-     * @param listener Listener to set
+     * @param listener Listener to add
      */
-    public void setOnPageChangeListener(OnPageChangeListener listener) {
+    public void addOnPageChangeListener(OnPageChangeListener listener) {
         if (!mOnPageChangeListeners.contains(listener)) {
             mOnPageChangeListeners.add(listener);
         }
+    }
+
+    /**
+     * Remove a listener that was added with addOnPageChangeListener
+     * See {@link OnPageChangeListener}.
+     *
+     * @param listener Listener to remove
+     */
+    public void removeOnPageChangeListener(OnPageChangeListener listener) {
+        mOnPageChangeListeners.remove(listener);
     }
 
     /**

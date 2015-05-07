@@ -328,7 +328,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
             throw new IllegalStateException("Viewpager does not have adapter instance");
         }
         mPager = pager;
-        mPager.setOnPageChangeListener(this);
+        mPager.addOnPageChangeListener(this);
         ((InfinitePagerAdapter)mPager.getAdapter()).getRealAdapter().registerDataSetObserver(dataChangeObserver);
     }
 
