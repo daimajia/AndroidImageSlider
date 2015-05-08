@@ -2,6 +2,7 @@ package com.daimajia.slider.library;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.database.DataSetObserver;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
@@ -185,6 +186,7 @@ public class SliderLayout extends RelativeLayout{
             }
         }
         mSliderAdapter = new SliderAdapter(mContext);
+        mSliderAdapter.registerDataSetObserver(sliderDataObserver);
         PagerAdapter wrappedAdapter = new InfinitePagerAdapter(mSliderAdapter);
 
         mViewPager = (InfiniteViewPager)findViewById(R.id.daimajia_slider_viewpager);
@@ -212,6 +214,17 @@ public class SliderLayout extends RelativeLayout{
             startAutoCycle();
         }
     }
+
+    private DataSetObserver sliderDataObserver = new DataSetObserver() {
+        @Override
+        public void onChanged() {
+            if (mSliderAdapter.getCount() <= 1){
+                pauseAutoCycle();
+            }  else {
+                recoverCycle();
+            }
+        }
+    };
 
     public void setCustomIndicator(PagerIndicator indicator){
         if(mIndicator != null){
@@ -272,11 +285,11 @@ public class SliderLayout extends RelativeLayout{
             mCycleTimer.cancel();
             mCycleTask.cancel();
             mCycling = false;
-        }else{
+        }/*else{
             if(mResumingTimer != null && mResumingTask != null){
                 recoverCycle();
             }
-        }
+        }*/
     }
 
     /**
@@ -624,8 +637,7 @@ public class SliderLayout extends RelativeLayout{
     public void removeSliderAt(int position){
         if(getRealAdapter()!=null){
             getRealAdapter().removeSliderAt(position);
-            mViewPager.setCurrentItem(mViewPager.getCurrentItem(),false);
-            mIndicator.redraw();
+            //mViewPager.setCurrentItem(mViewPager.getCurrentItem(),false);
         }
     }
 
@@ -689,5 +701,13 @@ public class SliderLayout extends RelativeLayout{
 
     public void moveNextPosition() {
         moveNextPosition(true);
+    }
+
+    /**
+     * clear self means unregister the dataset observer and cancel all Timer
+     */
+    public void destroySelf(){
+        mSliderAdapter.unregisterDataSetObserver(sliderDataObserver);
+        stopAutoCycle();
     }
 }
