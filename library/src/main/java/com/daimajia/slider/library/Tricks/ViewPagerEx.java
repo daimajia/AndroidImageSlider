@@ -305,7 +305,7 @@ public class ViewPagerEx extends ViewGroup{
         }
     }
 
-    private void setOnPageChanged(int position) {
+    private void triggerOnPageChangeEvent(int position) {
         for (OnPageChangeListener eachListener : mOnPageChangeListeners) {
             if (eachListener != null) {
                 InfinitePagerAdapter infiniteAdapter = (InfinitePagerAdapter)mAdapter;
@@ -556,7 +556,7 @@ public class ViewPagerEx extends ViewGroup{
             // We don't have any idea how big we are yet and shouldn't have any pages either.
             // Just set things up and let the pending layout handle things.
             mCurItem = item;
-            setOnPageChanged(item);
+            triggerOnPageChangeEvent(item);
             requestLayout();
         } else {
             populate(item);
@@ -576,11 +576,11 @@ public class ViewPagerEx extends ViewGroup{
         if (smoothScroll) {
             smoothScrollTo(destX, 0, velocity);
             if (dispatchSelected) {
-                setOnPageChanged(item);
+                triggerOnPageChangeEvent(item);
             }
         } else {
             if (dispatchSelected) {
-                setOnPageChanged(item);
+                triggerOnPageChangeEvent(item);
             }
             completeScroll(false);
             scrollTo(destX, 0);
