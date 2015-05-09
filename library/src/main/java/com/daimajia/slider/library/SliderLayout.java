@@ -719,6 +719,7 @@ public class SliderLayout extends RelativeLayout{
     public void destroySelf(){
         mSliderAdapter.unregisterDataSetObserver(sliderDataObserver);
         stopAutoCycle();
+        mViewPager.removeAllViews();
     }
 
     /**
