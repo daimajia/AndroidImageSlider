@@ -226,6 +226,16 @@ public class SliderLayout extends RelativeLayout{
         }
     };
 
+    public void addOnPageChangeListener(ViewPagerEx.OnPageChangeListener onPageChangeListener){
+        if(onPageChangeListener != null){
+            mViewPager.addOnPageChangeListener(onPageChangeListener);
+        }
+    }
+
+    public void removeOnPageChangeListener(ViewPagerEx.OnPageChangeListener onPageChangeListener) {
+        mViewPager.removeOnPageChangeListener(onPageChangeListener);
+    }
+
     public void setCustomIndicator(PagerIndicator indicator){
         if(mIndicator != null){
             mIndicator.destroySelf();
