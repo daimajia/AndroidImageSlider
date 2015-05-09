@@ -720,4 +720,12 @@ public class SliderLayout extends RelativeLayout{
         mSliderAdapter.unregisterDataSetObserver(sliderDataObserver);
         stopAutoCycle();
     }
+
+    /**
+     * {@link ViewPagerEx#setOffscreenPageLimit(int)} open ViewPager API.
+     * @param limit How many pages will be kept offscreen in an idle state.
+     */
+    public void setOffscreenPageLimit(int limit){
+        mViewPager.setOffscreenPageLimit(limit);
+    }
 }
