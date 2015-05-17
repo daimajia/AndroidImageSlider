@@ -371,6 +371,11 @@ public class SliderLayout extends RelativeLayout{
             case MotionEvent.ACTION_DOWN:
                 pauseAutoCycle();
                 break;
+            case MotionEvent.ACTION_MOVE:
+                if (getRealAdapter().getCount() <= 1) {
+                    return true;
+                }
+                break;
         }
         return false;
     }
