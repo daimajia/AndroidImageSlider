@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 22
-        versionCode 10
-        versionName "1.0.9"
+        versionCode 15
+        versionName "1.1.5"
     }
     buildTypes {
         release {
@@ -22,9 +22,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.+'
-    compile "com.android.support:support-v4:22.+"
-    compile 'com.squareup.picasso:picasso:+'
-    compile 'com.nineoldandroids:library:+'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile "com.android.support:support-v4:22.1.1"
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.nineoldandroids:library:2.4.0'
 }
 apply from: './gradle-mvn-push.gradle'
