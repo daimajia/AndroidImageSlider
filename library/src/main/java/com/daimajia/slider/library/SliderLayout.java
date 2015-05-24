@@ -246,7 +246,7 @@ public class SliderLayout extends RelativeLayout{
     };
 
     public void startAutoCycle(){
-        startAutoCycle(1000, mSliderDuration, mAutoRecover);
+        startAutoCycle(mSliderDuration, mSliderDuration, mAutoRecover);
     }
 
     /**
