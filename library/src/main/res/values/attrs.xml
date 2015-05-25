@@ -28,6 +28,7 @@
             <enum name="ZoomIn" value="13">ZoomIn</enum>
             <enum name="ZoomOutSlide" value="14">ZoomOutSlide</enum>
             <enum name="ZoomOut" value="15">ZoomOut</enum>
+            <enum name="Shuffle" value="16">Shuffle</enum>
         </attr>
 
         <!-- page animation time span -->

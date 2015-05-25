@@ -18,6 +18,11 @@
         android:orderInCategory="100"
         app:showAsAction="never"
         android:title="GitHub"
-        >
-    </item>
+        />
+    <item android:id="@+id/add_page"
+          android:orderInCategory="10"
+          android:title="add page"/>
+    <item android:id="@+id/delete_page"
+          android:orderInCategory="10"
+          android:title="delete page"/>
 </menu>
