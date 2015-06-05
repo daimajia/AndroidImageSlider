@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,11 +19,12 @@ import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 import java.util.HashMap;
 
 
-public class MainActivity extends ActionBarActivity implements BaseSliderView.OnSliderClickListener{
+public class MainActivity extends ActionBarActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
 
     private SliderLayout mDemoSlider;
 
@@ -54,8 +56,9 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
                     .setOnSliderClickListener(this);
 
             //add your extra information
+            textSliderView.bundle(new Bundle());
             textSliderView.getBundle()
-                    .putString("extra",name);
+                        .putString("extra",name);
 
            mDemoSlider.addSlider(textSliderView);
         }
@@ -63,6 +66,7 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(4000);
+        mDemoSlider.addOnPageChangeListener(this);
         ListView l = (ListView)findViewById(R.id.transformers);
         l.setAdapter(new TransformerAdapter(this));
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,6 +78,13 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
         });
 
 
+    }
+
+    @Override
+    protected void onStop() {
+        // To prevent a memory leak on rotation, make sure to call stopAutoCycle() on the slider before activity or fragment is destroyed
+        mDemoSlider.stopAutoCycle();
+        super.onStop();
     }
 
     @Override
@@ -108,4 +119,15 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+    @Override
+    public void onPageSelected(int position) {
+        Log.d("Slider Demo", "Page Changed: " + position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {}
 }

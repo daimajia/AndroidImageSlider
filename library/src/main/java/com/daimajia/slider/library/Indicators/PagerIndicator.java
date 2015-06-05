@@ -328,7 +328,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
             throw new IllegalStateException("Viewpager does not have adapter instance");
         }
         mPager = pager;
-        mPager.setOnPageChangeListener(this);
+        mPager.addOnPageChangeListener(this);
         ((InfinitePagerAdapter)mPager.getAdapter()).getRealAdapter().registerDataSetObserver(dataChangeObserver);
     }
 
@@ -444,11 +444,6 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if(mItemCount == 0){
-            return;
-        }
-        int n = position % mItemCount;
-        setItemAsSelected(n - 1);
     }
 
     public IndicatorVisibility getIndicatorVisibility(){
@@ -457,7 +452,10 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
     @Override
     public void onPageSelected(int position) {
-
+         if(mItemCount == 0){
+            return;
+        }
+        setItemAsSelected(position-1);
     }
     @Override
     public void onPageScrollStateChanged(int state) {

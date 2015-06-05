@@ -49,7 +49,7 @@ public class SliderAdapter extends PagerAdapter implements BaseSliderView.ImageL
     }
 
     public void removeSliderAt(int position){
-        if(mImageContents.size() < position){
+        if(mImageContents.size() > position){
             mImageContents.remove(position);
             notifyDataSetChanged();
         }
