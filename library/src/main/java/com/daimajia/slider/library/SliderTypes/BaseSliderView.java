@@ -49,7 +49,7 @@ public abstract class BaseSliderView {
 
     private Picasso mPicasso;
 
-    private int targetWidth, targetHeight;
+    private int mTargetWidth, mTargetHeight;
 
     /**
      * Scale type of the image.
@@ -233,8 +233,8 @@ public abstract class BaseSliderView {
             rq.error(getError());
         }
 
-        if (targetWidth > 0 || targetHeight > 0) {
-            rq.resize(targetWidth, targetHeight);
+        if (mTargetWidth > 0 || mTargetHeight > 0) {
+            rq.resize(mTargetWidth, mTargetHeight);
         }
 
         switch (mScaleType){
@@ -280,8 +280,8 @@ public abstract class BaseSliderView {
         if (targetHeight == 0 && targetWidth == 0) {
             throw new IllegalArgumentException("At least one dimension has to be positive number.");
         }
-        this.targetWidth = targetWidth;
-        this.targetHeight = targetHeight;
+        mTargetWidth = targetWidth;
+        mTargetHeight = targetHeight;
         return this;
     }
 
