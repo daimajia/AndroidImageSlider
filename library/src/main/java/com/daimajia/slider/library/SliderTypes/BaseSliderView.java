@@ -9,6 +9,7 @@ import com.daimajia.slider.library.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
+import com.squareup.picasso.Transformation;
 
 import java.io.File;
 
@@ -48,6 +49,8 @@ public abstract class BaseSliderView {
     private String mDescription;
 
     private Picasso mPicasso;
+
+    private Transformation mTransformation;
 
     /**
      * Scale type of the image.
@@ -219,6 +222,10 @@ public abstract class BaseSliderView {
             return;
         }
 
+        if (mTransformation != null) {
+            rq.transform(mTransformation);
+        }
+
         if(rq == null){
             return;
         }
@@ -324,5 +331,10 @@ public abstract class BaseSliderView {
      */
     public void setPicasso(Picasso picasso) {
         mPicasso = picasso;
+    }
+
+    public BaseSliderView setTransformation(Transformation transformation) {
+        mTransformation = transformation;
+        return this;
     }
 }
