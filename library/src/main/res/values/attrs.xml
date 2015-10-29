@@ -9,6 +9,7 @@
         </attr>
 
         <attr name="auto_cycle" format="boolean"/>
+        <attr name="loop_cycle" format="boolean"/>
 
         <!-- page animation -->
         <attr name="pager_animation" format="enum">

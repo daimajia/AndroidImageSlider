@@ -308,12 +308,20 @@ public class ViewPagerEx extends ViewGroup{
     private void triggerOnPageChangeEvent(int position) {
         for (OnPageChangeListener eachListener : mOnPageChangeListeners) {
             if (eachListener != null) {
-                InfinitePagerAdapter infiniteAdapter = (InfinitePagerAdapter)mAdapter;
-                if (infiniteAdapter.getRealCount() == 0) {
-                    return;
+                if (mAdapter instanceof InfinitePagerAdapter) {
+                    InfinitePagerAdapter infiniteAdapter = (InfinitePagerAdapter)mAdapter;
+                    if (infiniteAdapter.getRealCount() == 0) {
+                        return;
+                    }
+                    int n = position % infiniteAdapter.getRealCount();
+                    eachListener.onPageSelected(n);
+                } else {
+                    if (mAdapter.getCount() == 0) {
+                        return;
+                    }
+                    int n = position % mAdapter.getCount();
+                    eachListener.onPageSelected(n);
                 }
-                int n = position % infiniteAdapter.getRealCount();
-                eachListener.onPageSelected(n);
             }
         }
         if (mInternalPageChangeListener != null) {

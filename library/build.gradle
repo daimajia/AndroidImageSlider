@@ -27,4 +27,4 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.nineoldandroids:library:2.4.0'
 }
-apply from: './gradle-mvn-push.gradle'
+//apply from: './gradle-mvn-push.gradle'
