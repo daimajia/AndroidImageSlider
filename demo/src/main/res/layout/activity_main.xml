@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.daimajia.slider.demo.MainActivity">
+
     <com.daimajia.slider.library.SliderLayout
         android:id="@+id/slider"
         android:layout_width="match_parent"
@@ -35,6 +36,7 @@
         custom:unselected_height="6dp"
         android:layout_marginBottom="20dp"
         />
+
     <com.daimajia.slider.library.Indicators.PagerIndicator
         android:id="@+id/custom_indicator2"
         style="@style/AndroidImageSlider_Corner_Oval_Orange"
@@ -42,6 +44,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         />
+
     <ListView
         android:layout_below="@+id/slider"
         android:id="@+id/transformers"

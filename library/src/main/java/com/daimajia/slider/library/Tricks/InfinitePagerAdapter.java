@@ -23,7 +23,7 @@ public class InfinitePagerAdapter extends PagerAdapter {
         this.adapter = adapter;
     }
 
-    public SliderAdapter getRealAdapter(){
+    public SliderAdapter getRealAdapter() {
         return this.adapter;
     }
 
@@ -43,7 +43,7 @@ public class InfinitePagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        if(getRealCount() == 0){
+        if (getRealCount() == 0) {
             return null;
         }
         int virtualPosition = position % getRealCount();
@@ -56,7 +56,7 @@ public class InfinitePagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        if(getRealCount() == 0){
+        if (getRealCount() == 0) {
             return;
         }
         int virtualPosition = position % getRealCount();

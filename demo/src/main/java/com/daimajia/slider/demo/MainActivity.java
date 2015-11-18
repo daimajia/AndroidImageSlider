@@ -24,7 +24,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import java.util.HashMap;
 
 
-public class MainActivity extends ActionBarActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
+public class MainActivity extends ActionBarActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private SliderLayout mDemoSlider;
 
@@ -32,42 +32,42 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mDemoSlider = (SliderLayout)findViewById(R.id.slider);
+        mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
-        url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
-        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
-        url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
+//        HashMap<String, String> urlMaps = new HashMap<String, String>();
+//        urlMaps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
+//        urlMaps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
+//        urlMaps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
+//        urlMaps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
 
-        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
-        file_maps.put("Hannibal",R.drawable.hannibal);
-        file_maps.put("Big Bang Theory",R.drawable.bigbang);
-        file_maps.put("House of Cards",R.drawable.house);
-        file_maps.put("Game of Thrones", R.drawable.game_of_thrones);
+        HashMap<String, Integer> fileMaps = new HashMap<String, Integer>();
+        fileMaps.put("Hannibal", R.drawable.hannibal);
+        fileMaps.put("Big Bang Theory", R.drawable.bigbang);
+        fileMaps.put("House of Cards", R.drawable.house);
+        fileMaps.put("Game of Thrones", R.drawable.game_of_thrones);
 
-        for(String name : file_maps.keySet()){
+        for(String name : fileMaps.keySet()) {
             TextSliderView textSliderView = new TextSliderView(this);
             // initialize a SliderLayout
             textSliderView
-                    .description(name)
-                    .image(file_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
+                .description(name)
+                .image(fileMaps.get(name))
+                .setScaleType(BaseSliderView.ScaleType.Fit)
+                .setOnSliderClickListener(this);
 
             //add your extra information
             textSliderView.bundle(new Bundle());
             textSliderView.getBundle()
-                        .putString("extra",name);
-
-           mDemoSlider.addSlider(textSliderView);
+                .putString("extra", name);
+            mDemoSlider.addSlider(textSliderView);
         }
+
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(4000);
         mDemoSlider.addOnPageChangeListener(this);
-        ListView l = (ListView)findViewById(R.id.transformers);
+        ListView l = (ListView) findViewById(R.id.transformers);
         l.setAdapter(new TransformerAdapter(this));
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,8 +76,6 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
                 Toast.makeText(MainActivity.this, ((TextView) view).getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     @Override
@@ -89,19 +87,19 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
 
     @Override
     public void onSliderClick(BaseSliderView slider) {
-        Toast.makeText(this,slider.getBundle().get("extra") + "",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, slider.getBundle().get("extra") + "", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main,menu);
+        menuInflater.inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_custom_indicator:
                 mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
                 break;
@@ -121,7 +119,8 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
 
     @Override
     public void onPageSelected(int position) {
@@ -129,5 +128,6 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
     }
 
     @Override
-    public void onPageScrollStateChanged(int state) {}
+    public void onPageScrollStateChanged(int state) {
+    }
 }

@@ -12,8 +12,9 @@ import com.daimajia.slider.library.SliderLayout;
 /**
  * Created by daimajia on 14-5-29.
  */
-public class TransformerAdapter extends BaseAdapter{
+public class TransformerAdapter extends BaseAdapter {
     private Context mContext;
+
     public TransformerAdapter(Context context) {
         mContext = context;
     }
@@ -35,7 +36,7 @@ public class TransformerAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView t = (TextView)LayoutInflater.from(mContext).inflate(R.layout.item,null);
+        TextView t = (TextView) LayoutInflater.from(mContext).inflate(R.layout.item, null);
         t.setText(getItem(position).toString());
         return t;
     }
