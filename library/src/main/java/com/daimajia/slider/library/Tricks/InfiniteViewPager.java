@@ -23,5 +23,4 @@ public class InfiniteViewPager extends ViewPagerEx {
     public void setAdapter(PagerAdapter adapter) {
         super.setAdapter(adapter);
     }
-
 }

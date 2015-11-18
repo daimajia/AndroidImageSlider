@@ -22,7 +22,7 @@ import java.util.ArrayList;
 /**
  * Pager Indicator.
  */
-public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageChangeListener{
+public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageChangeListener {
 
     private Context mContext;
 
@@ -56,7 +56,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     private Drawable mUnselectedDrawable;
 
     /**
-     *This value is from {@link com.daimajia.slider.library.SliderAdapter} getRealCount() represent
+     * This value is from {@link com.daimajia.slider.library.SliderAdapter} getRealCount() represent
      *
      * the indicator count that we should draw.
      */
@@ -75,10 +75,12 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     private float mDefaultUnSelectedWidth;
     private float mDefaultUnSelectedHeight;
 
-    public enum IndicatorVisibility{
+    public enum IndicatorVisibility {
         Visible,
         Invisible;
-    };
+    }
+
+    ;
 
     private GradientDrawable mUnSelectedGradientDrawable;
     private GradientDrawable mSelectedGradientDrawable;
@@ -108,7 +110,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
 
     public PagerIndicator(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public PagerIndicator(Context context, AttributeSet attrs) {
@@ -116,91 +118,92 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
         mContext = context;
 
-        final TypedArray attributes = context.obtainStyledAttributes(attrs,R.styleable.PagerIndicator,0,0);
+        final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.PagerIndicator, 0, 0);
 
-        int visibility = attributes.getInt(R.styleable.PagerIndicator_visibility,IndicatorVisibility.Visible.ordinal());
+        int visibility = attributes.getInt(R.styleable.PagerIndicator_visibility, IndicatorVisibility.Visible.ordinal());
 
-        for(IndicatorVisibility v : IndicatorVisibility.values()){
-            if(v.ordinal() == visibility){
+        for(IndicatorVisibility v : IndicatorVisibility.values()) {
+            if (v.ordinal() == visibility) {
                 mVisibility = v;
                 break;
             }
         }
 
         int shape = attributes.getInt(R.styleable.PagerIndicator_shape, Shape.Oval.ordinal());
-        for(Shape s: Shape.values()){
-            if(s.ordinal() == shape){
+        for(Shape s : Shape.values()) {
+            if (s.ordinal() == shape) {
                 mIndicatorShape = s;
                 break;
             }
         }
 
         mUserSetSelectedIndicatorResId = attributes.getResourceId(R.styleable.PagerIndicator_selected_drawable,
-                0);
+            0);
         mUserSetUnSelectedIndicatorResId = attributes.getResourceId(R.styleable.PagerIndicator_unselected_drawable,
-                0);
+            0);
 
         mDefaultSelectedColor = attributes.getColor(R.styleable.PagerIndicator_selected_color, Color.rgb(255, 255, 255));
-        mDefaultUnSelectedColor = attributes.getColor(R.styleable.PagerIndicator_unselected_color, Color.argb(33,255,255,255));
+        mDefaultUnSelectedColor = attributes.getColor(R.styleable.PagerIndicator_unselected_color, Color.argb(33, 255, 255, 255));
 
-        mDefaultSelectedWidth = attributes.getDimension(R.styleable.PagerIndicator_selected_width,(int)pxFromDp(6));
-        mDefaultSelectedHeight = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_height,(int)pxFromDp(6));
+        mDefaultSelectedWidth = attributes.getDimension(R.styleable.PagerIndicator_selected_width, (int) pxFromDp(6));
+        mDefaultSelectedHeight = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_height, (int) pxFromDp(6));
 
-        mDefaultUnSelectedWidth = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_width,(int)pxFromDp(6));
-        mDefaultUnSelectedHeight = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_height,(int)pxFromDp(6));
+        mDefaultUnSelectedWidth = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_width, (int) pxFromDp(6));
+        mDefaultUnSelectedHeight = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_height, (int) pxFromDp(6));
 
         mSelectedGradientDrawable = new GradientDrawable();
         mUnSelectedGradientDrawable = new GradientDrawable();
 
-        mPadding_left = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_left,(int)pxFromDp(3));
-        mPadding_right = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_right,(int)pxFromDp(3));
-        mPadding_top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_top,(int)pxFromDp(0));
-        mPadding_bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_bottom,(int)pxFromDp(0));
+        mPadding_left = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_left, (int) pxFromDp(3));
+        mPadding_right = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_right, (int) pxFromDp(3));
+        mPadding_top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_top, (int) pxFromDp(0));
+        mPadding_bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_padding_bottom, (int) pxFromDp(0));
 
-        mSelectedPadding_Left = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_left,(int)mPadding_left);
-        mSelectedPadding_Right = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_right,(int)mPadding_right);
-        mSelectedPadding_Top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_top,(int)mPadding_top);
-        mSelectedPadding_Bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_bottom,(int)mPadding_bottom);
+        mSelectedPadding_Left = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_left, (int) mPadding_left);
+        mSelectedPadding_Right = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_right, (int) mPadding_right);
+        mSelectedPadding_Top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_top, (int) mPadding_top);
+        mSelectedPadding_Bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_selected_padding_bottom, (int) mPadding_bottom);
 
-        mUnSelectedPadding_Left = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_left,(int)mPadding_left);
-        mUnSelectedPadding_Right = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_right,(int)mPadding_right);
-        mUnSelectedPadding_Top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_top,(int)mPadding_top);
-        mUnSelectedPadding_Bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_bottom,(int)mPadding_bottom);
+        mUnSelectedPadding_Left = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_left, (int) mPadding_left);
+        mUnSelectedPadding_Right = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_right, (int) mPadding_right);
+        mUnSelectedPadding_Top = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_top, (int) mPadding_top);
+        mUnSelectedPadding_Bottom = attributes.getDimensionPixelSize(R.styleable.PagerIndicator_unselected_padding_bottom, (int) mPadding_bottom);
 
         mSelectedLayerDrawable = new LayerDrawable(new Drawable[]{mSelectedGradientDrawable});
         mUnSelectedLayerDrawable = new LayerDrawable(new Drawable[]{mUnSelectedGradientDrawable});
 
 
-        setIndicatorStyleResource(mUserSetSelectedIndicatorResId,mUserSetUnSelectedIndicatorResId);
+        setIndicatorStyleResource(mUserSetSelectedIndicatorResId, mUserSetUnSelectedIndicatorResId);
         setDefaultIndicatorShape(mIndicatorShape);
-        setDefaultSelectedIndicatorSize(mDefaultSelectedWidth,mDefaultSelectedHeight,Unit.Px);
-        setDefaultUnselectedIndicatorSize(mDefaultUnSelectedWidth,mDefaultUnSelectedHeight,Unit.Px);
+        setDefaultSelectedIndicatorSize(mDefaultSelectedWidth, mDefaultSelectedHeight, Unit.Px);
+        setDefaultUnselectedIndicatorSize(mDefaultUnSelectedWidth, mDefaultUnSelectedHeight, Unit.Px);
         setDefaultIndicatorColor(mDefaultSelectedColor, mDefaultUnSelectedColor);
         setIndicatorVisibility(mVisibility);
         attributes.recycle();
     }
 
-    public enum Shape{
-        Oval,Rectangle
+    public enum Shape {
+        Oval, Rectangle
     }
 
     /**
      * if you are using the default indicator, this method will help you to set the shape of
      * indicator, there are two kind of shapes you  can set, oval and rect.
+     *
      * @param shape
      */
-    public void setDefaultIndicatorShape(Shape shape){
-        if(mUserSetSelectedIndicatorResId == 0){
-            if(shape == Shape.Oval){
+    public void setDefaultIndicatorShape(Shape shape) {
+        if (mUserSetSelectedIndicatorResId == 0) {
+            if (shape == Shape.Oval) {
                 mSelectedGradientDrawable.setShape(GradientDrawable.OVAL);
-            }else{
+            } else {
                 mSelectedGradientDrawable.setShape(GradientDrawable.RECTANGLE);
             }
         }
-        if(mUserSetUnSelectedIndicatorResId == 0){
-            if(shape == Shape.Oval){
+        if (mUserSetUnSelectedIndicatorResId == 0) {
+            if (shape == Shape.Oval) {
                 mUnSelectedGradientDrawable.setShape(GradientDrawable.OVAL);
-            }else{
+            } else {
                 mUnSelectedGradientDrawable.setShape(GradientDrawable.RECTANGLE);
             }
         }
@@ -210,20 +213,21 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
     /**
      * Set Indicator style.
-     * @param selected page selected drawable
+     *
+     * @param selected   page selected drawable
      * @param unselected page unselected drawable
      */
-    public void setIndicatorStyleResource(int selected, int unselected){
+    public void setIndicatorStyleResource(int selected, int unselected) {
         mUserSetSelectedIndicatorResId = selected;
         mUserSetUnSelectedIndicatorResId = unselected;
-        if(selected == 0){
+        if (selected == 0) {
             mSelectedDrawable = mSelectedLayerDrawable;
-        }else{
+        } else {
             mSelectedDrawable = mContext.getResources().getDrawable(mUserSetSelectedIndicatorResId);
         }
-        if(unselected == 0){
+        if (unselected == 0) {
             mUnselectedDrawable = mUnSelectedLayerDrawable;
-        }else{
+        } else {
             mUnselectedDrawable = mContext.getResources().getDrawable(mUserSetUnSelectedIndicatorResId);
         }
 
@@ -233,28 +237,29 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     /**
      * if you are using the default indicator , this method will help you to set the selected status and
      * the unselected status color.
+     *
      * @param selectedColor
      * @param unselectedColor
      */
-    public void setDefaultIndicatorColor(int selectedColor,int unselectedColor){
-        if(mUserSetSelectedIndicatorResId == 0){
+    public void setDefaultIndicatorColor(int selectedColor, int unselectedColor) {
+        if (mUserSetSelectedIndicatorResId == 0) {
             mSelectedGradientDrawable.setColor(selectedColor);
         }
-        if(mUserSetUnSelectedIndicatorResId == 0){
+        if (mUserSetUnSelectedIndicatorResId == 0) {
             mUnSelectedGradientDrawable.setColor(unselectedColor);
         }
         resetDrawable();
     }
 
-    public enum Unit{
-        DP,Px
+    public enum Unit {
+        DP, Px
     }
 
-    public void setDefaultSelectedIndicatorSize(float width,float height,Unit unit){
-        if(mUserSetSelectedIndicatorResId == 0){
+    public void setDefaultSelectedIndicatorSize(float width, float height, Unit unit) {
+        if (mUserSetSelectedIndicatorResId == 0) {
             float w = width;
             float h = height;
-            if(unit == Unit.DP){
+            if (unit == Unit.DP) {
                 w = pxFromDp(width);
                 h = pxFromDp(height);
             }
@@ -263,11 +268,11 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         }
     }
 
-    public void setDefaultUnselectedIndicatorSize(float width,float height,Unit unit){
-        if(mUserSetUnSelectedIndicatorResId == 0){
+    public void setDefaultUnselectedIndicatorSize(float width, float height, Unit unit) {
+        if (mUserSetUnSelectedIndicatorResId == 0) {
             float w = width;
             float h = height;
-            if(unit == Unit.DP){
+            if (unit == Unit.DP) {
                 w = pxFromDp(width);
                 h = pxFromDp(height);
             }
@@ -276,29 +281,28 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         }
     }
 
-    public void setDefaultIndicatorSize(float width, float height, Unit unit){
-        setDefaultSelectedIndicatorSize(width,height,unit);
-        setDefaultUnselectedIndicatorSize(width,height,unit);
+    public void setDefaultIndicatorSize(float width, float height, Unit unit) {
+        setDefaultSelectedIndicatorSize(width, height, unit);
+        setDefaultUnselectedIndicatorSize(width, height, unit);
     }
 
-    private float dpFromPx(float px)
-    {
+    private float dpFromPx(float px) {
         return px / this.getContext().getResources().getDisplayMetrics().density;
     }
 
-    private float pxFromDp(float dp)
-    {
+    private float pxFromDp(float dp) {
         return dp * this.getContext().getResources().getDisplayMetrics().density;
     }
 
     /**
      * set the visibility of indicator.
+     *
      * @param visibility
      */
-    public void setIndicatorVisibility(IndicatorVisibility visibility){
-        if(visibility == IndicatorVisibility.Visible){
+    public void setIndicatorVisibility(IndicatorVisibility visibility) {
+        if (visibility == IndicatorVisibility.Visible) {
             setVisibility(View.VISIBLE);
-        }else{
+        } else {
             setVisibility(View.INVISIBLE);
         }
         resetDrawable();
@@ -307,13 +311,13 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     /**
      * clear self means unregister the dataset observer and remove all the child views(indicators).
      */
-    public void destroySelf(){
-        if(mPager == null || mPager.getAdapter() == null){
+    public void destroySelf() {
+        if (mPager == null || mPager.getAdapter() == null) {
             return;
         }
-        InfinitePagerAdapter wrapper = (InfinitePagerAdapter)mPager.getAdapter();
+        InfinitePagerAdapter wrapper = (InfinitePagerAdapter) mPager.getAdapter();
         PagerAdapter adapter = wrapper.getRealAdapter();
-        if(adapter!=null){
+        if (adapter != null) {
             adapter.unregisterDataSetObserver(dataChangeObserver);
         }
         removeAllViews();
@@ -321,25 +325,25 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
     /**
      * bind indicator with viewpagerEx.
+     *
      * @param pager
      */
-    public void setViewPager(ViewPagerEx pager){
-        if(pager.getAdapter() == null){
+    public void setViewPager(ViewPagerEx pager) {
+        if (pager.getAdapter() == null) {
             throw new IllegalStateException("Viewpager does not have adapter instance");
         }
         mPager = pager;
         mPager.addOnPageChangeListener(this);
-        ((InfinitePagerAdapter)mPager.getAdapter()).getRealAdapter().registerDataSetObserver(dataChangeObserver);
+        ((InfinitePagerAdapter) mPager.getAdapter()).getRealAdapter().registerDataSetObserver(dataChangeObserver);
     }
 
 
-    private void resetDrawable(){
-        for(View i : mIndicators){
-            if(mPreviousSelectedIndicator!= null && mPreviousSelectedIndicator.equals(i)){
-                ((ImageView)i).setImageDrawable(mSelectedDrawable);
-            }
-            else{
-                ((ImageView)i).setImageDrawable(mUnselectedDrawable);
+    private void resetDrawable() {
+        for(View i : mIndicators) {
+            if (mPreviousSelectedIndicator != null && mPreviousSelectedIndicator.equals(i)) {
+                ((ImageView) i).setImageDrawable(mSelectedDrawable);
+            } else {
+                ((ImageView) i).setImageDrawable(mUnselectedDrawable);
             }
         }
     }
@@ -347,21 +351,21 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     /**
      * redraw the indicators.
      */
-    public void redraw(){
+    public void redraw() {
         mItemCount = getShouldDrawCount();
         mPreviousSelectedIndicator = null;
-        for(View i:mIndicators){
+        for(View i : mIndicators) {
             removeView(i);
         }
 
 
-        for(int i =0 ;i< mItemCount; i++){
+        for(int i = 0; i < mItemCount; i++) {
             ImageView indicator = new ImageView(mContext);
             indicator.setImageDrawable(mUnselectedDrawable);
-            indicator.setPadding((int)mUnSelectedPadding_Left,
-                    (int)mUnSelectedPadding_Top,
-                    (int)mUnSelectedPadding_Right,
-                    (int)mUnSelectedPadding_Bottom);
+            indicator.setPadding((int) mUnSelectedPadding_Left,
+                (int) mUnSelectedPadding_Top,
+                (int) mUnSelectedPadding_Right,
+                (int) mUnSelectedPadding_Bottom);
             addView(indicator);
             mIndicators.add(indicator);
         }
@@ -370,12 +374,13 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
     /**
      * since we used a adapter wrapper, so we can't getCount directly from wrapper.
+     *
      * @return
      */
-    private int getShouldDrawCount(){
-        if(mPager.getAdapter() instanceof InfinitePagerAdapter){
-            return ((InfinitePagerAdapter)mPager.getAdapter()).getRealCount();
-        }else{
+    private int getShouldDrawCount() {
+        if (mPager.getAdapter() instanceof InfinitePagerAdapter) {
+            return ((InfinitePagerAdapter) mPager.getAdapter()).getRealCount();
+        } else {
             return mPager.getAdapter().getCount();
         }
     }
@@ -385,30 +390,30 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         public void onChanged() {
             PagerAdapter adapter = mPager.getAdapter();
             int count = 0;
-            if(adapter instanceof InfinitePagerAdapter){
-                count = ((InfinitePagerAdapter)adapter).getRealCount();
-            }else{
+            if (adapter instanceof InfinitePagerAdapter) {
+                count = ((InfinitePagerAdapter) adapter).getRealCount();
+            } else {
                 count = adapter.getCount();
             }
-            if(count > mItemCount){
-                for(int i =0 ; i< count - mItemCount;i++){
+            if (count > mItemCount) {
+                for(int i = 0; i < count - mItemCount; i++) {
                     ImageView indicator = new ImageView(mContext);
                     indicator.setImageDrawable(mUnselectedDrawable);
-                    indicator.setPadding((int)mUnSelectedPadding_Left,
-                            (int)mUnSelectedPadding_Top,
-                            (int)mUnSelectedPadding_Right,
-                            (int)mUnSelectedPadding_Bottom);
+                    indicator.setPadding((int) mUnSelectedPadding_Left,
+                        (int) mUnSelectedPadding_Top,
+                        (int) mUnSelectedPadding_Right,
+                        (int) mUnSelectedPadding_Bottom);
                     addView(indicator);
                     mIndicators.add(indicator);
                 }
-            }else if(count < mItemCount){
-                for(int i = 0; i < mItemCount - count;i++){
+            } else if (count < mItemCount) {
+                for(int i = 0; i < mItemCount - count; i++) {
                     removeView(mIndicators.get(0));
                     mIndicators.remove(0);
                 }
             }
             mItemCount = count;
-            mPager.setCurrentItem(mItemCount*20 + mPager.getCurrentItem());
+            mPager.setCurrentItem(mItemCount * 20 + mPager.getCurrentItem());
         }
 
         @Override
@@ -418,24 +423,24 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         }
     };
 
-    private void setItemAsSelected(int position){
-        if(mPreviousSelectedIndicator != null){
+    private void setItemAsSelected(int position) {
+        if (mPreviousSelectedIndicator != null) {
             mPreviousSelectedIndicator.setImageDrawable(mUnselectedDrawable);
             mPreviousSelectedIndicator.setPadding(
-                    (int)mUnSelectedPadding_Left,
-                    (int)mUnSelectedPadding_Top,
-                    (int)mUnSelectedPadding_Right,
-                    (int)mUnSelectedPadding_Bottom
+                (int) mUnSelectedPadding_Left,
+                (int) mUnSelectedPadding_Top,
+                (int) mUnSelectedPadding_Right,
+                (int) mUnSelectedPadding_Bottom
             );
         }
-        ImageView currentSelected = (ImageView)getChildAt(position + 1);
-        if(currentSelected != null){
+        ImageView currentSelected = (ImageView) getChildAt(position + 1);
+        if (currentSelected != null) {
             currentSelected.setImageDrawable(mSelectedDrawable);
             currentSelected.setPadding(
-                    (int)mSelectedPadding_Left,
-                    (int)mSelectedPadding_Top,
-                    (int)mSelectedPadding_Right,
-                    (int)mSelectedPadding_Bottom
+                (int) mSelectedPadding_Left,
+                (int) mSelectedPadding_Top,
+                (int) mSelectedPadding_Right,
+                (int) mSelectedPadding_Bottom
             );
             mPreviousSelectedIndicator = currentSelected;
         }
@@ -446,27 +451,27 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
     }
 
-    public IndicatorVisibility getIndicatorVisibility(){
+    public IndicatorVisibility getIndicatorVisibility() {
         return mVisibility;
     }
 
     @Override
     public void onPageSelected(int position) {
-         if(mItemCount == 0){
+        if (mItemCount == 0) {
             return;
         }
-        setItemAsSelected(position-1);
+        setItemAsSelected(position - 1);
     }
+
     @Override
     public void onPageScrollStateChanged(int state) {
     }
 
-    public int getSelectedIndicatorResId(){
+    public int getSelectedIndicatorResId() {
         return mUserSetSelectedIndicatorResId;
     }
 
-    public int getUnSelectedIndicatorResId(){
+    public int getUnSelectedIndicatorResId() {
         return mUserSetUnSelectedIndicatorResId;
     }
-
 }

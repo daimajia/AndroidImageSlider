@@ -16,8 +16,8 @@ public class FixedSpeedScroller extends Scroller {
         super(context, interpolator);
     }
 
-    public FixedSpeedScroller(Context context, Interpolator interpolator, int period){
-        this(context,interpolator);
+    public FixedSpeedScroller(Context context, Interpolator interpolator, int period) {
+        this(context, interpolator);
         mDuration = period;
     }
 
