@@ -193,6 +193,9 @@ public class SliderLayout extends RelativeLayout{
         mViewPager.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                if(mSliderAdapter.getCount() < 2){
+                    return true;
+                }
                 int action = event.getAction();
                 switch (action) {
                      case MotionEvent.ACTION_UP:
@@ -235,6 +238,11 @@ public class SliderLayout extends RelativeLayout{
 
     public <T extends BaseSliderView> void addSlider(T imageContent){
         mSliderAdapter.addSlider(imageContent);
+        if(mSliderAdapter.getCount() < 2){
+            stopAutoCycle();
+        }else{
+            if(mAutoCycle) recoverCycle();
+        }
     }
 
     private android.os.Handler mh = new android.os.Handler(){
