@@ -42,7 +42,7 @@
             <enum name="invisible" value="1"/>
         </attr>
 
-        <attr name="shape" format="enum">
+        <attr name="daimajia_slider_shape" format="enum">
             <enum value="0" name="oval"/>
             <enum value="1" name="rect"/>
         </attr>

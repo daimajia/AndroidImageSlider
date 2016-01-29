@@ -7,7 +7,7 @@
         <item name="android:background">@drawable/indicator_corner_bg</item>
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingRight">2dp</item>
-        <item name="shape">oval</item>
+        <item name="daimajia_slider_shape">oval</item>
         <item name="padding_left">3dp</item>
         <item name="padding_right">3dp</item>
         <item name="padding_top">4dp</item>
@@ -27,7 +27,7 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingRight">2dp</item>
-        <item name="shape">rect</item>
+        <item name="daimajia_slider_shape">rect</item>
         <item name="padding_left">3dp</item>
         <item name="padding_right">3dp</item>
         <item name="padding_top">4dp</item>
@@ -47,7 +47,7 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingRight">2dp</item>
-        <item name="shape">oval</item>
+        <item name="daimajia_slider_shape">oval</item>
         <item name="padding_left">3dp</item>
         <item name="padding_right">3dp</item>
         <item name="padding_top">4dp</item>

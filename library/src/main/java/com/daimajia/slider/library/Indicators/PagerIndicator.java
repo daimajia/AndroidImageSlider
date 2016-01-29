@@ -127,7 +127,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
             }
         }
 
-        int shape = attributes.getInt(R.styleable.PagerIndicator_shape, Shape.Oval.ordinal());
+        int shape = attributes.getInt(R.styleable.PagerIndicator_daimajia_slider_shape, Shape.Oval.ordinal());
         for(Shape s: Shape.values()){
             if(s.ordinal() == shape){
                 mIndicatorShape = s;

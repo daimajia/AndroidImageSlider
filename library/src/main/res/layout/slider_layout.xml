@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:paddingBottom="10dp"
         android:gravity="center"
-        custom:shape="oval"
+        custom:daimajia_slider_shape="oval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <com.daimajia.slider.library.Indicators.PagerIndicator
