@@ -22,7 +22,7 @@
         custom:selected_color="#0095BF"
         custom:unselected_color="#55333333"
         custom:selected_drawable="@drawable/bird"
-        custom:shape="oval"
+        custom:daimajia_slider_shape="oval"
         custom:selected_padding_left="5dp"
         custom:selected_padding_right="5dp"
         custom:unselected_padding_left="5dp"
