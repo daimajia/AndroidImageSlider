@@ -358,9 +358,6 @@ public class SliderLayout extends RelativeLayout{
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if(mSliderAdapter.getCount() < 2){
-            return true;
-        }
         int action = ev.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
