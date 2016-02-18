@@ -55,7 +55,7 @@ public abstract class BaseSliderView {
     private ScaleType mScaleType = ScaleType.Fit;
 
     public enum ScaleType{
-        CenterCrop, CenterInside, Fit, FitCenterCrop
+        CenterCrop, CenterInside, Fit, FitCenterCrop, OnlyScaleDown
     }
 
     protected BaseSliderView(Context context) {
@@ -240,6 +240,9 @@ public abstract class BaseSliderView {
                 break;
             case CenterInside:
                 rq.fit().centerInside();
+                break;
+            case OnlyScaleDown:
+                rq.onlyScaleDown();
                 break;
         }
 
