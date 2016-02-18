@@ -54,6 +54,14 @@ public abstract class BaseSliderView {
      */
     private ScaleType mScaleType = ScaleType.Fit;
 
+    private int resizeWidth = -1;
+    private int resizeHeight = -1;
+
+    public void setResizeDimensions(int resizeWidth, int resizeHeight) {
+        this.resizeHeight = resizeHeight;
+        this.resizeWidth = resizeWidth;
+    }
+
     public enum ScaleType{
         CenterCrop, CenterInside, Fit, FitCenterCrop, OnlyScaleDown
     }
@@ -242,7 +250,11 @@ public abstract class BaseSliderView {
                 rq.fit().centerInside();
                 break;
             case OnlyScaleDown:
-                rq.onlyScaleDown();
+                if (resizeWidth == -1 && resizeHeight == -1) {
+                    throw new IllegalArgumentException("At least one dimension has to be a positive number");
+                }
+                rq.resize(resizeWidth, resizeHeight)
+                    .onlyScaleDown();
                 break;
         }
 
