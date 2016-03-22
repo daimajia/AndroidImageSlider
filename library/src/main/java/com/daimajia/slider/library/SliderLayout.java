@@ -627,6 +627,18 @@ public class SliderLayout extends RelativeLayout{
         int realCount = mViewPager.getCurrentItem() % count;
         return  getRealAdapter().getSliderView(realCount);
     }
+    
+    /**
+     * get position slider.
+     * @return
+     */
+    public BaseSliderView getSlider(int position){
+        
+        if(getRealAdapter() == null)
+            throw new IllegalStateException("You did not set a slider adapter");
+            
+        return  getRealAdapter().getSliderView(position);
+    }
 
     /**
      * remove  the slider at the position. Notice: It's a not perfect method, a very small bug still exists.
