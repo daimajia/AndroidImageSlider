@@ -342,7 +342,7 @@ public class SliderLayout extends RelativeLayout{
                     startAutoCycle();
                 }
             };
-            mResumingTimer.schedule(mResumingTask, 6000);
+            mResumingTimer.schedule(mResumingTask, mSliderDuration);
         }
     }
 
