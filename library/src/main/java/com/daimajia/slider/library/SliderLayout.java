@@ -106,14 +106,14 @@ public class SliderLayout extends RelativeLayout{
     /**
      * A timer and a TimerTask using to cycle the {@link com.daimajia.slider.library.Tricks.ViewPagerEx}.
      */
-    private Timer mCycleTimer;
-    private TimerTask mCycleTask;
+    private static Timer mCycleTimer;
+    private static TimerTask mCycleTask;
 
     /**
      * For resuming the cycle, after user touch or click the {@link com.daimajia.slider.library.Tricks.ViewPagerEx}.
      */
-    private Timer mResumingTimer;
-    private TimerTask mResumingTask;
+    private static Timer mResumingTimer;
+    private static TimerTask mResumingTask;
 
     /**
      * If {@link com.daimajia.slider.library.Tricks.ViewPagerEx} is Cycling
