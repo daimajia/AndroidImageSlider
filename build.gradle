@@ -20,5 +20,5 @@ task clean(type: Delete) {
 }
 
 project.ext {
-    minSDKVersion = "a"
+    minSDKVersion = "9"
 }
