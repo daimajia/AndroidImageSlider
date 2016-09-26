@@ -4,37 +4,35 @@ import android.graphics.Camera;
 import android.graphics.Matrix;
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
-
 public class TabletTransformer extends BaseTransformer {
 
-	private static final Matrix OFFSET_MATRIX = new Matrix();
-	private static final Camera OFFSET_CAMERA = new Camera();
-	private static final float[] OFFSET_TEMP_FLOAT = new float[2];
+    private static final Matrix OFFSET_MATRIX = new Matrix();
+    private static final Camera OFFSET_CAMERA = new Camera();
+    private static final float[] OFFSET_TEMP_FLOAT = new float[2];
 
-	@Override
-	protected void onTransform(View view, float position) {
-		final float rotation = (position < 0 ? 30f : -30f) * Math.abs(position);
+    protected static final float getOffsetXForRotation(float degrees, int width, int height) {
+        OFFSET_MATRIX.reset();
+        OFFSET_CAMERA.save();
+        OFFSET_CAMERA.rotateY(Math.abs(degrees));
+        OFFSET_CAMERA.getMatrix(OFFSET_MATRIX);
+        OFFSET_CAMERA.restore();
 
-		ViewHelper.setTranslationX(view,getOffsetXForRotation(rotation, view.getWidth(), view.getHeight()));
-        ViewHelper.setPivotX(view,view.getWidth() * 0.5f);
-        ViewHelper.setPivotY(view,0);
-        ViewHelper.setRotationY(view,rotation);
-	}
+        OFFSET_MATRIX.preTranslate(-width * 0.5f, -height * 0.5f);
+        OFFSET_MATRIX.postTranslate(width * 0.5f, height * 0.5f);
+        OFFSET_TEMP_FLOAT[0] = width;
+        OFFSET_TEMP_FLOAT[1] = height;
+        OFFSET_MATRIX.mapPoints(OFFSET_TEMP_FLOAT);
+        return (width - OFFSET_TEMP_FLOAT[0]) * (degrees > 0.0f ? 1.0f : -1.0f);
+    }
 
-	protected static final float getOffsetXForRotation(float degrees, int width, int height) {
-		OFFSET_MATRIX.reset();
-		OFFSET_CAMERA.save();
-		OFFSET_CAMERA.rotateY(Math.abs(degrees));
-		OFFSET_CAMERA.getMatrix(OFFSET_MATRIX);
-		OFFSET_CAMERA.restore();
+    @Override
+    protected void onTransform(View view, float position) {
+        final float rotation = (position < 0 ? 30f : -30f) * Math.abs(position);
 
-		OFFSET_MATRIX.preTranslate(-width * 0.5f, -height * 0.5f);
-		OFFSET_MATRIX.postTranslate(width * 0.5f, height * 0.5f);
-		OFFSET_TEMP_FLOAT[0] = width;
-		OFFSET_TEMP_FLOAT[1] = height;
-		OFFSET_MATRIX.mapPoints(OFFSET_TEMP_FLOAT);
-		return (width - OFFSET_TEMP_FLOAT[0]) * (degrees > 0.0f ? 1.0f : -1.0f);
-	}
+        View.TRANSLATION_X.set(view, getOffsetXForRotation(rotation, view.getWidth(), view.getHeight()));
+        view.setPivotX(view.getWidth() * 0.5f);
+        view.setPivotY(0);
+        View.ROTATION_Y.set(view, rotation);
+    }
 
 }

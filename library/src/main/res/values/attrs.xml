@@ -4,11 +4,11 @@
 
         <!-- indicator visibility -->
         <attr name="indicator_visibility" format="enum">
-            <enum name="visible" value="0"/>
-            <enum name="invisible" value="1"/>
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
         </attr>
 
-        <attr name="auto_cycle" format="boolean"/>
+        <attr name="auto_cycle" format="boolean" />
 
         <!-- page animation -->
         <attr name="pager_animation" format="enum">
@@ -31,55 +31,55 @@
         </attr>
 
         <!-- page animation time span -->
-        <attr name="pager_animation_span" format="integer"/>
+        <attr name="pager_animation_span" format="integer" />
 
     </declare-styleable>
 
     <declare-styleable name="PagerIndicator">
         <!-- indicator visibility -->
         <attr name="visibility" format="enum">
-            <enum name="visible" value="0"/>
-            <enum name="invisible" value="1"/>
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
         </attr>
 
         <attr name="shape" format="enum">
-            <enum value="0" name="oval"/>
-            <enum value="1" name="rect"/>
+            <enum name="oval" value="0" />
+            <enum name="rect" value="1" />
         </attr>
 
-        <attr name="selected_color" format="color"/>
-        <attr name="unselected_color" format="color"/>
+        <attr name="selected_color" format="color" />
+        <attr name="unselected_color" format="color" />
 
         <!-- indicator style -->
-        <attr name="selected_drawable" format="reference"/>
-        <attr name="unselected_drawable" format="reference"/>
+        <attr name="selected_drawable" format="reference" />
+        <attr name="unselected_drawable" format="reference" />
 
-        <attr name="selected_width" format="dimension"/>
-        <attr name="selected_height" format="dimension"/>
+        <attr name="selected_width" format="dimension" />
+        <attr name="selected_height" format="dimension" />
 
-        <attr name="unselected_width" format="dimension"/>
-        <attr name="unselected_height" format="dimension"/>
+        <attr name="unselected_width" format="dimension" />
+        <attr name="unselected_height" format="dimension" />
 
-        <attr name="padding_left" format="dimension"/>
-        <attr name="padding_right" format="dimension"/>
-        <attr name="padding_top" format="dimension"/>
-        <attr name="padding_bottom" format="dimension"/>
+        <attr name="padding_left" format="dimension" />
+        <attr name="padding_right" format="dimension" />
+        <attr name="padding_top" format="dimension" />
+        <attr name="padding_bottom" format="dimension" />
 
-        <attr name="selected_padding_left" format="dimension"/>
-        <attr name="selected_padding_right" format="dimension"/>
-        <attr name="selected_padding_top" format="dimension"/>
-        <attr name="selected_padding_bottom" format="dimension"/>
+        <attr name="selected_padding_left" format="dimension" />
+        <attr name="selected_padding_right" format="dimension" />
+        <attr name="selected_padding_top" format="dimension" />
+        <attr name="selected_padding_bottom" format="dimension" />
 
-        <attr name="unselected_padding_left" format="dimension"/>
-        <attr name="unselected_padding_right" format="dimension"/>
-        <attr name="unselected_padding_top" format="dimension"/>
-        <attr name="unselected_padding_bottom" format="dimension"/>
+        <attr name="unselected_padding_left" format="dimension" />
+        <attr name="unselected_padding_right" format="dimension" />
+        <attr name="unselected_padding_top" format="dimension" />
+        <attr name="unselected_padding_bottom" format="dimension" />
 
 
     </declare-styleable>
 
     <declare-styleable name="Themes">
-        <attr name="SliderStyle" format="reference"/>
-        <attr name="PagerIndicatorStyle" format="reference"/>
+        <attr name="SliderStyle" format="reference" />
+        <attr name="PagerIndicatorStyle" format="reference" />
     </declare-styleable>
 </resources>
