@@ -9,10 +9,10 @@ import com.daimajia.slider.library.R;
 
 /**
  * a simple slider view, which just show an image. If you want to make your own slider view,
- *
+ * <p>
  * just extend BaseSliderView, and implement getView() method.
  */
-public class DefaultSliderView extends BaseSliderView{
+public class DefaultSliderView extends BaseSliderView {
 
     public DefaultSliderView(Context context) {
         super(context);
@@ -20,8 +20,8 @@ public class DefaultSliderView extends BaseSliderView{
 
     @Override
     public View getView() {
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.render_type_default,null);
-        ImageView target = (ImageView)v.findViewById(R.id.daimajia_slider_image);
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.render_type_default, null);
+        ImageView target = (ImageView) v.findViewById(R.id.daimajia_slider_image);
         bindEventAndShow(v, target);
         return v;
     }
