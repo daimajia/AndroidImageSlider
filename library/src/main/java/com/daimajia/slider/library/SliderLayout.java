@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -86,6 +87,7 @@ import java.util.TimerTask;
  */
 public class SliderLayout extends RelativeLayout{
 
+    private static final String LOG_TAG = "Android SLIDER";
     private Context mContext;
     /**
      * InfiniteViewPager is extended from ViewPagerEx. As the name says, it can scroll without bounder.
@@ -106,14 +108,14 @@ public class SliderLayout extends RelativeLayout{
     /**
      * A timer and a TimerTask using to cycle the {@link com.daimajia.slider.library.Tricks.ViewPagerEx}.
      */
-    private Timer mCycleTimer;
-    private TimerTask mCycleTask;
+    private static Timer mCycleTimer;
+    private static TimerTask mCycleTask;
 
     /**
      * For resuming the cycle, after user touch or click the {@link com.daimajia.slider.library.Tricks.ViewPagerEx}.
      */
-    private Timer mResumingTimer;
-    private TimerTask mResumingTask;
+    private static Timer mResumingTimer;
+    private static TimerTask mResumingTask;
 
     /**
      * If {@link com.daimajia.slider.library.Tricks.ViewPagerEx} is Cycling
@@ -523,6 +525,18 @@ public class SliderLayout extends RelativeLayout{
                 break;
         }
         setPagerTransformer(true,t);
+    }
+
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        Log.d(LOG_TAG, "onDetachedFromWindow() ***");
+        if(mCycleTimer != null) mCycleTimer.cancel();
+        if(mCycleTask != null) mCycleTask.cancel();
+        if(mResumingTask != null) mResumingTask.cancel();
+        if(mResumingTimer != null) mResumingTimer.cancel();
+        mh.removeCallbacksAndMessages(null);
     }
 
 
