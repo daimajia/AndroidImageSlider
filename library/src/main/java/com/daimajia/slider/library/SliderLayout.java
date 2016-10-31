@@ -629,6 +629,16 @@ public class SliderLayout extends RelativeLayout{
     }
 
     /**
+     * remove the slider. Notice: It's a not perfect method, a very small bug still exists.
+     */
+    public void removeSlider(BaseSliderView slider) {
+        if (getRealAdapter() != null) {
+            getRealAdapter().removeSlider(slider);
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem(), false);
+        }
+    }
+
+    /**
      * remove  the slider at the position. Notice: It's a not perfect method, a very small bug still exists.
      */
     public void removeSliderAt(int position){
