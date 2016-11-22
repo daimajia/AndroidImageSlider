@@ -21,12 +21,19 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class MainActivity extends ActionBarActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
 
     private SliderLayout mDemoSlider;
+
+    private ArrayList<String> imageNames;
+    private int hideItems;
+    private int imageIterator;
+
+    private HashMap<String,Integer> file_maps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +47,15 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
         url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
         url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
 
-        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
+        file_maps = new HashMap<String, Integer>();
         file_maps.put("Hannibal",R.drawable.hannibal);
         file_maps.put("Big Bang Theory",R.drawable.bigbang);
         file_maps.put("House of Cards",R.drawable.house);
         file_maps.put("Game of Thrones", R.drawable.game_of_thrones);
+
+        imageNames = new ArrayList<>(file_maps.keySet());
+        hideItems = 0;
+        imageIterator = -1;
 
         for(String name : file_maps.keySet()){
             TextSliderView textSliderView = new TextSliderView(this);
@@ -62,7 +73,7 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
 
            mDemoSlider.addSlider(textSliderView);
         }
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Shuffle);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(4000);
@@ -100,6 +111,21 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
     }
 
     @Override
+    protected boolean onPrepareOptionsPanel(View view, Menu menu) {
+        if (hideItems <= 0) {
+            menu.findItem(R.id.add_page).setVisible(false);
+            menu.findItem(R.id.delete_page).setVisible(true);
+        } else if (hideItems >= imageNames.size()) {
+            menu.findItem(R.id.add_page).setVisible(true);
+            menu.findItem(R.id.delete_page).setVisible(false);
+        } else {
+            menu.findItem(R.id.add_page).setVisible(true);
+            menu.findItem(R.id.delete_page).setVisible(true);
+        }
+        return super.onPrepareOptionsPanel(view, menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_custom_indicator:
@@ -115,6 +141,27 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
             case R.id.action_github:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/daimajia/AndroidImageSlider"));
                 startActivity(browserIntent);
+                break;
+            case R.id.add_page:
+                hideItems--;
+                TextSliderView textSliderView = new TextSliderView(this);
+                String name = imageNames.get((imageIterator-hideItems)%imageNames.size());
+                // initialize a SliderLayout
+                textSliderView
+                        .description(name)
+                        .image(file_maps.get(name))
+                        .setScaleType(BaseSliderView.ScaleType.Fit)
+                        .setOnSliderClickListener(this);
+                //add your extra information
+                textSliderView.bundle(new Bundle());
+                textSliderView.getBundle()
+                        .putString("extra",name);
+                mDemoSlider.addSlider(textSliderView);
+                break;
+            case R.id.delete_page:
+                mDemoSlider.removeSliderAt(0);
+                hideItems++;
+                imageIterator++;
                 break;
         }
         return super.onOptionsItemSelected(item);

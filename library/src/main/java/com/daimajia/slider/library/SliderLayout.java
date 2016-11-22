@@ -2,6 +2,7 @@ package com.daimajia.slider.library;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.database.DataSetObserver;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
@@ -37,6 +38,7 @@ import com.daimajia.slider.library.Tricks.InfiniteViewPager;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 import java.lang.reflect.Field;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -134,6 +136,8 @@ public class SliderLayout extends RelativeLayout{
 
     private boolean mAutoCycle;
 
+    private boolean mIsShuffle = false;
+
     /**
      * the duration between animation.
      */
@@ -185,6 +189,7 @@ public class SliderLayout extends RelativeLayout{
             }
         }
         mSliderAdapter = new SliderAdapter(mContext);
+        mSliderAdapter.registerDataSetObserver(sliderDataObserver);
         PagerAdapter wrappedAdapter = new InfinitePagerAdapter(mSliderAdapter);
 
         mViewPager = (InfiniteViewPager)findViewById(R.id.daimajia_slider_viewpager);
@@ -212,6 +217,17 @@ public class SliderLayout extends RelativeLayout{
             startAutoCycle();
         }
     }
+
+    private DataSetObserver sliderDataObserver = new DataSetObserver() {
+        @Override
+        public void onChanged() {
+            if (mSliderAdapter.getCount() <= 1){
+                pauseAutoCycle();
+            }  else {
+                recoverCycle();
+            }
+        }
+    };
 
     public void addOnPageChangeListener(ViewPagerEx.OnPageChangeListener onPageChangeListener){
         if(onPageChangeListener != null){
@@ -282,11 +298,11 @@ public class SliderLayout extends RelativeLayout{
             mCycleTimer.cancel();
             mCycleTask.cancel();
             mCycling = false;
-        }else{
+        }/*else{
             if(mResumingTimer != null && mResumingTask != null){
                 recoverCycle();
             }
-        }
+        }*/
     }
 
     /**
@@ -407,7 +423,8 @@ public class SliderLayout extends RelativeLayout{
         Tablet("Tablet"),
         ZoomIn("ZoomIn"),
         ZoomOutSlide("ZoomOutSlide"),
-        ZoomOut("ZoomOut");
+        ZoomOut("ZoomOut"),
+        Shuffle("Shuffle");
 
         private final String name;
 
@@ -472,6 +489,7 @@ public class SliderLayout extends RelativeLayout{
         // special thanks to https://github.com/ToxicBakery/ViewPagerTransforms
         //
         BaseTransformer t = null;
+        mIsShuffle = false;
         switch (ts){
             case Default:
                 t = new DefaultTransformer();
@@ -521,11 +539,77 @@ public class SliderLayout extends RelativeLayout{
             case ZoomOut:
                 t = new ZoomOutTransformer();
                 break;
+            case Shuffle:
+                mIsShuffle = true;
+                t = getShuffleTransformer();
+                break;
         }
         setPagerTransformer(true,t);
     }
 
+    /**
+     * return a random Transformer between [0, the length of enum -1)
+     * @return
+     */
+    public BaseTransformer getShuffleTransformer(){
+        BaseTransformer t = null;
 
+        int transformerNumber = Transformer.values().length;
+        int random = new Random().nextInt(transformerNumber-1);
+
+        Transformer ts = Transformer.values()[random];
+        switch (ts) {
+            case Default:
+                t = new DefaultTransformer();
+                break;
+            case Accordion:
+                t = new AccordionTransformer();
+                break;
+            case Background2Foreground:
+                t = new BackgroundToForegroundTransformer();
+                break;
+            case CubeIn:
+                t = new CubeInTransformer();
+                break;
+            case DepthPage:
+                t = new DepthPageTransformer();
+                break;
+            case Fade:
+                t = new FadeTransformer();
+                break;
+            case FlipHorizontal:
+                t = new FlipHorizontalTransformer();
+                break;
+            case FlipPage:
+                t = new FlipPageViewTransformer();
+                break;
+            case Foreground2Background:
+                t = new ForegroundToBackgroundTransformer();
+                break;
+            case RotateDown:
+                t = new RotateDownTransformer();
+                break;
+            case RotateUp:
+                t = new RotateUpTransformer();
+                break;
+            case Stack:
+                t = new StackTransformer();
+                break;
+            case Tablet:
+                t = new TabletTransformer();
+                break;
+            case ZoomIn:
+                t = new ZoomInTransformer();
+                break;
+            case ZoomOutSlide:
+                t = new ZoomOutSlideTransformer();
+                break;
+            case ZoomOut:
+                t = new ZoomOutTransformer();
+                break;
+        }
+        return t;
+    }
 
     /**
      * Set the visibility of the indicators.
@@ -634,7 +718,7 @@ public class SliderLayout extends RelativeLayout{
     public void removeSliderAt(int position){
         if(getRealAdapter()!=null){
             getRealAdapter().removeSliderAt(position);
-            mViewPager.setCurrentItem(mViewPager.getCurrentItem(),false);
+            //mViewPager.setCurrentItem(mViewPager.getCurrentItem(),false);
         }
     }
 
@@ -693,10 +777,30 @@ public class SliderLayout extends RelativeLayout{
         if (getRealAdapter() == null)
             throw new IllegalStateException("You did not set a slider adapter");
 
+        if (mIsShuffle){
+            setPagerTransformer(true, getShuffleTransformer());
+        }
         mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, smooth);
     }
 
     public void moveNextPosition() {
         moveNextPosition(true);
+    }
+
+    /**
+     * clear self means unregister the dataset observer and cancel all Timer
+     */
+    public void destroySelf(){
+        mSliderAdapter.unregisterDataSetObserver(sliderDataObserver);
+        stopAutoCycle();
+        mViewPager.removeAllViews();
+    }
+
+    /**
+     * {@link ViewPagerEx#setOffscreenPageLimit(int)} open ViewPager API.
+     * @param limit How many pages will be kept offscreen in an idle state.
+     */
+    public void setOffscreenPageLimit(int limit){
+        mViewPager.setOffscreenPageLimit(limit);
     }
 }

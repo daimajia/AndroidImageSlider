@@ -353,7 +353,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
         for(View i:mIndicators){
             removeView(i);
         }
-
+        mIndicators.clear();
 
         for(int i =0 ;i< mItemCount; i++){
             ImageView indicator = new ImageView(mContext);
@@ -408,7 +408,15 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
                 }
             }
             mItemCount = count;
-            mPager.setCurrentItem(mItemCount*20 + mPager.getCurrentItem());
+            if (mItemCount <= 1){
+                // mItemCount+1 is to make sure it scroll some even count = 0
+                // count*20 is to reserve some space for left side scroll.
+                mPager.setCurrentItem((mItemCount+1)*20 + mPager
+                        .getCurrentItem(), true);
+            } else {
+                mPager.setCurrentItem( 20 + mPager.getCurrentItem(),
+                        false);
+            }
         }
 
         @Override
