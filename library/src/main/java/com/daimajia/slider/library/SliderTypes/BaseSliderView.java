@@ -188,7 +188,7 @@ public abstract class BaseSliderView {
      * @param v the whole view
      * @param targetImageView where to place image
      */
-    protected void bindEventAndShow(final View v, ImageView targetImageView){
+    protected void bindEventAndShow(final View v, TouchImageView targetImageView){
         final BaseSliderView me = this;
 
         v.setOnClickListener(new View.OnClickListener() {
