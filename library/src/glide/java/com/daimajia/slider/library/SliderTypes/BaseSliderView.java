@@ -5,18 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.load.engine.Resource;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.daimajia.slider.library.R;
-//import com.squareup.picasso.Callback;
-//import com.squareup.picasso.Picasso;
-//import com.squareup.picasso.RequestCreator;
 
 import java.io.File;
 
@@ -251,26 +245,28 @@ public abstract class BaseSliderView {
                 break;
         }
 
-//        rq.listener(new RequestListener<String, GlideDrawable>() {
-//            @Override
-//            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-////                if(mLoadListener != null){
-////                    mLoadListener.onEnd(false,me);
-////                }
-////                if(v.findViewById(R.id.loading_bar) != null){
-////                    v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
-////                }
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-////                if(v.findViewById(R.id.loading_bar) != null){
-////                    v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
-////                }
-//                return true;
-//            }
-//        });
+        rq.listener(new RequestListener() {
+            @Override
+            public boolean onException(Exception e, Object model, Target target,
+                                       boolean isFirstResource) {
+                if(mLoadListener != null){
+                    mLoadListener.onEnd(false,me);
+                }
+                if(v.findViewById(R.id.loading_bar) != null){
+                    v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Object resource, Object model, Target target,
+                                           boolean isFromMemoryCache, boolean isFirstResource) {
+                if(v.findViewById(R.id.loading_bar) != null){
+                    v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
+                }
+                return false;
+            }
+        });
 
         rq.into(targetImageView);
     }
@@ -323,9 +319,9 @@ public abstract class BaseSliderView {
      *
      * @return The current user-provided Picasso instance, or null if none
      */
-//    public Picasso getPicasso() {
-//        return mPicasso;
-//    }
+    public RequestManager getGlideRequestManager() {
+        return mGlide;
+    }
 
     /**
      * Provide a Picasso instance to use when loading pictures, this is useful if you have a
@@ -334,7 +330,7 @@ public abstract class BaseSliderView {
      * @param picasso The Picasso instance to use, may be null to let the system use the default
      *                instance
      */
-//    public void setPicasso(Picasso picasso) {
-//        mPicasso = picasso;
-//    }
+    public void setGlideRequestManager(RequestManager glideRequestManager) {
+        mGlide = glideRequestManager;
+    }
 }
