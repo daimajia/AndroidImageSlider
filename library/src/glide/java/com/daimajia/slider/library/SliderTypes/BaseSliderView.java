@@ -49,7 +49,7 @@ public abstract class BaseSliderView {
 
     private String mDescription;
 
-    private RequestManager mGlide;
+    private RequestManager mGlideRM;
 
     /**
      * Scale type of the image.
@@ -209,7 +209,7 @@ public abstract class BaseSliderView {
             mLoadListener.onStart(me);
         }
 
-        RequestManager rm = (mGlide != null) ? mGlide : Glide.with(mContext);
+        RequestManager rm = (mGlideRM != null) ? mGlideRM : Glide.with(mContext);
         DrawableTypeRequest rq;
         if(mUrl!=null){
             rq = rm.load(mUrl);
@@ -315,22 +315,23 @@ public abstract class BaseSliderView {
     }
 
     /**
-     * Get the last instance set via setPicasso(), or null if no user provided instance was set
+     * Get the last instance set via getGlideRequestManager(), or null if no user provided instance
+     * was set
      *
-     * @return The current user-provided Picasso instance, or null if none
+     * @return The current user-provided Glide RequestManager instance, or null if none
      */
     public RequestManager getGlideRequestManager() {
-        return mGlide;
+        return mGlideRM;
     }
 
     /**
      * Provide a Picasso instance to use when loading pictures, this is useful if you have a
      * particular HTTP cache you would like to share.
      *
-     * @param picasso The Picasso instance to use, may be null to let the system use the default
-     *                instance
+     * @param glideRequestManager The Picasso instance to use, may be null to let the system use
+     *                            the default instance
      */
     public void setGlideRequestManager(RequestManager glideRequestManager) {
-        mGlide = glideRequestManager;
+        mGlideRM = glideRequestManager;
     }
 }
