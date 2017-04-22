@@ -1,17 +1,17 @@
 package com.daimajia.slider.library.Transformers;
 
 import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.nineoldandroids.view.ViewHelper;
 
 public class FlipPageViewTransformer extends BaseTransformer {
 
     @Override
     protected void onTransform(View view, float position) {
         float percentage = 1 - Math.abs(position);
-        if(Build.VERSION.SDK_INT >= 13){
+        if (Build.VERSION.SDK_INT >= 13) {
             view.setCameraDistance(12000);
         }
         setVisibility(view, position);
@@ -31,19 +31,19 @@ public class FlipPageViewTransformer extends BaseTransformer {
     private void setTranslation(View view) {
         ViewPagerEx viewPager = (ViewPagerEx) view.getParent();
         int scroll = viewPager.getScrollX() - view.getLeft();
-        ViewHelper.setTranslationX(view,scroll);
+        ViewCompat.setTranslationX(view, scroll);
     }
 
     private void setSize(View view, float position, float percentage) {
-        ViewHelper.setScaleX(view,(position != 0 && position != 1) ? percentage : 1);
-        ViewHelper.setScaleY(view,(position != 0 && position != 1) ? percentage : 1);
+        ViewCompat.setScaleX(view, (position != 0 && position != 1) ? percentage : 1);
+        ViewCompat.setScaleY(view, (position != 0 && position != 1) ? percentage : 1);
     }
 
     private void setRotation(View view, float position, float percentage) {
         if (position > 0) {
-            ViewHelper.setRotationY(view,-180 * (percentage + 1));
+            ViewCompat.setRotationY(view, -180 * (percentage + 1));
         } else {
-            ViewHelper.setRotationY(view,180 * (percentage + 1));
+            ViewCompat.setRotationY(view, 180 * (percentage + 1));
         }
     }
 }
