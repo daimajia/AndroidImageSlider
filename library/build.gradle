@@ -24,8 +24,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation "com.android.support:support-v4:27.1.1"
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-    //implementation 'com.squareup.picasso:picasso:2.71828'
+    //implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.nineoldandroids:library:2.4.0'
 
     //Added to fix conflicting versions with other libraries
