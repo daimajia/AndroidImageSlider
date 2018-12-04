@@ -4,7 +4,6 @@ import android.view.View;
 
 import com.daimajia.slider.library.Animations.BaseAnimationInterface;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,26 +71,26 @@ public abstract class BaseTransformer implements ViewPagerEx.PageTransformer {
     protected void onPreTransform(View view, float position) {
         final float width = view.getWidth();
 
-        ViewHelper.setRotationX(view,0);
-        ViewHelper.setRotationY(view,0);
-        ViewHelper.setRotation(view,0);
-        ViewHelper.setScaleX(view,1);
-        ViewHelper.setScaleY(view,1);
-        ViewHelper.setPivotX(view,0);
-        ViewHelper.setPivotY(view,0);
-        ViewHelper.setTranslationY(view,0);
-        ViewHelper.setTranslationX(view,isPagingEnabled() ? 0f : -width * position);
+        view.setRotationX(0);
+        view.setRotationY(0);
+        view.setRotation(0);
+        view.setScaleX(1);
+        view.setScaleY(1);
+        view.setPivotX(0);
+        view.setPivotY(0);
+        view.setTranslationY(0);
+        view.setTranslationX(isPagingEnabled() ? 0f : -width * position);
 
         if (hideOffscreenPages()) {
-            ViewHelper.setAlpha(view,position <= -1f || position >= 1f ? 0f : 1f);
+            view.setAlpha(position <= -1f || position >= 1f ? 0f : 1f);
         } else {
-            ViewHelper.setAlpha(view,1f);
+            view.setAlpha(1f);
         }
         if(mCustomAnimationInterface != null){
             if(h.containsKey(view) == false || h.get(view).size() == 1){
                 if(position > -1 && position < 1){
                     if(h.get(view) == null){
-                        h.put(view,new ArrayList<Float>());
+                        h.put(view, new ArrayList<Float>());
                     }
                     h.get(view).add(position);
                     if(h.get(view).size() == 2){

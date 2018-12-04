@@ -1,11 +1,10 @@
 package com.daimajia.slider.library.Animations;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.view.View;
 
 import com.daimajia.slider.library.R;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.ValueAnimator;
-import com.nineoldandroids.view.ViewHelper;
 
 /**
  * A demo class to show how to use {@link com.daimajia.slider.library.Animations.BaseAnimationInterface}
@@ -49,7 +48,7 @@ public class DescriptionAnimation implements BaseAnimationInterface {
 
         View descriptionLayout = view.findViewById(R.id.description_layout);
         if(descriptionLayout!=null){
-            float layoutY = ViewHelper.getY(descriptionLayout);
+            float layoutY = descriptionLayout.getY();
             view.findViewById(R.id.description_layout).setVisibility(View.VISIBLE);
             ValueAnimator animator = ObjectAnimator.ofFloat(
                     descriptionLayout,"y",layoutY + descriptionLayout.getHeight(),
