@@ -1,8 +1,7 @@
 package com.daimajia.slider.library.Transformers;
 
-import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import android.view.View;
 
 public class DepthPageTransformer extends BaseTransformer {
 
@@ -11,16 +10,16 @@ public class DepthPageTransformer extends BaseTransformer {
 	@Override
 	protected void onTransform(View view, float position) {
 		if (position <= 0f) {
-            ViewHelper.setTranslationX(view,0f);
-            ViewHelper.setScaleX(view,1f);
-            ViewHelper.setScaleY(view,1f);
+            view.setTranslationX(0f);
+            view.setScaleX(1f);
+            view.setScaleY(1f);
 		} else if (position <= 1f) {
 			final float scaleFactor = MIN_SCALE + (1 - MIN_SCALE) * (1 - Math.abs(position));
-            ViewHelper.setAlpha(view,1-position);
-            ViewHelper.setPivotY(view,0.5f * view.getHeight());
-            ViewHelper.setTranslationX(view,view.getWidth() * - position);
-            ViewHelper.setScaleX(view,scaleFactor);
-            ViewHelper.setScaleY(view,scaleFactor);
+            view.setAlpha(1-position);
+            view.setPivotY(0.5f * view.getHeight());
+            view.setTranslationX(view.getWidth() * - position);
+            view.setScaleX(scaleFactor);
+            view.setScaleY(scaleFactor);
 		}
 	}
 

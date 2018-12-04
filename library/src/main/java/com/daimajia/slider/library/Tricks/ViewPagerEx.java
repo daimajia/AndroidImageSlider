@@ -15,7 +15,6 @@ import android.os.SystemClock;
 import android.support.v4.os.ParcelableCompat;
 import android.support.v4.os.ParcelableCompatCreatorCallbacks;
 import android.support.v4.view.AccessibilityDelegateCompat;
-import android.support.v4.view.KeyEventCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.VelocityTrackerCompat;
@@ -388,8 +387,8 @@ public class ViewPagerEx extends ViewGroup{
 
         if (ViewCompat.getImportantForAccessibility(this)
                 == ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_AUTO) {
-            ViewCompat.setImportantForAccessibility(this,
-                    ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
+			ViewCompat.setImportantForAccessibility(this,
+					ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
         }
     }
 
@@ -839,7 +838,7 @@ public class ViewPagerEx extends ViewGroup{
         duration = Math.min(duration, MAX_SETTLE_DURATION);
 
         mScroller.startScroll(sx, sy, dx, dy, duration);
-        ViewCompat.postInvalidateOnAnimation(this);
+		ViewCompat.postInvalidateOnAnimation(this);
     }
 
     ItemInfo addNewItem(int position, int index) {
@@ -1636,7 +1635,7 @@ public class ViewPagerEx extends ViewGroup{
             }
 
             // Keep on drawing until the animation has finished.
-            ViewCompat.postInvalidateOnAnimation(this);
+			ViewCompat.postInvalidateOnAnimation(this);
             return;
         }
 
@@ -1774,7 +1773,7 @@ public class ViewPagerEx extends ViewGroup{
         }
         if (needPopulate) {
             if (postEvents) {
-                ViewCompat.postOnAnimation(this, mEndScrollRunnable);
+				ViewCompat.postOnAnimation(this, mEndScrollRunnable);
             } else {
                 mEndScrollRunnable.run();
             }
@@ -1789,8 +1788,8 @@ public class ViewPagerEx extends ViewGroup{
         final int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             final int layerType = enable ?
-                    ViewCompat.LAYER_TYPE_HARDWARE : ViewCompat.LAYER_TYPE_NONE;
-            ViewCompat.setLayerType(getChildAt(i), layerType, null);
+					ViewCompat.LAYER_TYPE_HARDWARE : ViewCompat.LAYER_TYPE_NONE;
+			ViewCompat.setLayerType(getChildAt(i), layerType, null);
         }
     }
 
@@ -1884,7 +1883,7 @@ public class ViewPagerEx extends ViewGroup{
                 if (mIsBeingDragged) {
                     // Scroll to follow the motion event
                     if (performDrag(x)) {
-                        ViewCompat.postInvalidateOnAnimation(this);
+						ViewCompat.postInvalidateOnAnimation(this);
                     }
                 }
                 break;
@@ -2059,7 +2058,7 @@ public class ViewPagerEx extends ViewGroup{
                 break;
         }
         if (needsInvalidate) {
-            ViewCompat.postInvalidateOnAnimation(this);
+			ViewCompat.postInvalidateOnAnimation(this);
         }
         return true;
     }
@@ -2222,7 +2221,7 @@ public class ViewPagerEx extends ViewGroup{
 
         if (needsInvalidate) {
             // Keep animating
-            ViewCompat.postInvalidateOnAnimation(this);
+			ViewCompat.postInvalidateOnAnimation(this);
         }
     }
 
@@ -2511,17 +2510,6 @@ public class ViewPagerEx extends ViewGroup{
                     break;
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
                     handled = arrowScroll(FOCUS_RIGHT);
-                    break;
-                case KeyEvent.KEYCODE_TAB:
-                    if (Build.VERSION.SDK_INT >= 11) {
-                        // The focus finder had a bug handling FOCUS_FORWARD and FOCUS_BACKWARD
-                        // before Android 3.0. Ignore the tab key on those devices.
-                        if (KeyEventCompat.hasNoModifiers(event)) {
-                            handled = arrowScroll(FOCUS_FORWARD);
-                        } else if (KeyEventCompat.hasModifiers(event, KeyEvent.META_SHIFT_ON)) {
-                            handled = arrowScroll(FOCUS_BACKWARD);
-                        }
-                    }
                     break;
             }
         }

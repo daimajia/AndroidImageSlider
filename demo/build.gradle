@@ -1,16 +1,16 @@
-apply plugin: 'android-sdk-manager'
+//apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 22
+        minSdkVersion 19
+        targetSdkVersion 28
         versionCode 2
-        versionName "1.0.1"
+        versionName "1.1.0"
     }
     buildTypes {
         release {
@@ -20,9 +20,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':library')
-    compile 'com.android.support:appcompat-v7:22.+'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.daimajia.androidanimations:library:1.0.3@aar'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':library')
+    implementation 'com.android.support:appcompat-v7:26.0.1'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.daimajia.androidanimations:library:1.0.3@aar'
 }

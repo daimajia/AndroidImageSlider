@@ -7,19 +7,24 @@ android:
     # - tools
 
     # The BuildTools version used by your project
-    - build-tools-22.0.1
+    - build-tools-26.0.2
 
     # The SDK version used to compile your project
-    - android-22
+    - android-26
 
     # Additional components
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    - addon-google_apis-google-19
+    - extra-android-support
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-19
-    - sys-img-x86-android-17
+    - sys-img-x86-android-26
+    - sys-img-armeabi-v7a-android-17
+
+    # Licenses
+    # - 'android-sdk-license-.+'
+    # - 'google-gdk-license-.+'
+
 script: ./gradlew assembleDebug
