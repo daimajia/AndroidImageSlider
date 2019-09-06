@@ -3,7 +3,7 @@ package com.daimajia.slider.demo;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,12 +19,13 @@ import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.daimajia.slider.library.SliderTypes.VideoSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 import java.util.HashMap;
 
 
-public class MainActivity extends ActionBarActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
+public class MainActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
 
     private SliderLayout mDemoSlider;
 
@@ -46,12 +47,18 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
         file_maps.put("House of Cards",R.drawable.house);
         file_maps.put("Game of Thrones", R.drawable.game_of_thrones);
 
+        HashMap<String,String> video_url_maps = new HashMap<>();
+        video_url_maps.put("HoneyComb", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+        video_url_maps.put("GOT", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4");
+
+
+
         for(String name : file_maps.keySet()){
             TextSliderView textSliderView = new TextSliderView(this);
             // initialize a SliderLayout
             textSliderView
                     .description(name)
-                    .image(file_maps.get(name))
+                    .load(file_maps.get(name))
                     .setScaleType(BaseSliderView.ScaleType.Fit)
                     .setOnSliderClickListener(this);
 
@@ -60,12 +67,35 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
             textSliderView.getBundle()
                         .putString("extra",name);
 
-           mDemoSlider.addSlider(textSliderView);
+            mDemoSlider.addSlider(textSliderView);
         }
+
+        for(String name : video_url_maps.keySet()){
+            VideoSliderView videoSliderView = new VideoSliderView(this);
+            // initialize a SliderLayout
+            videoSliderView
+                    .description(name)
+                    .load(video_url_maps.get(name))
+                    .setVideoLooping(false)
+                    .setAutoPlay(true)
+                    .setPlayButtonIcon(R.drawable.play_button)
+                    .setOnSliderClickListener(this);
+
+            //add your extra information
+            videoSliderView.bundle(new Bundle());
+            videoSliderView.getBundle()
+                    .putString("extra",name);
+
+            mDemoSlider.addSlider(videoSliderView);
+        }
+
+
+
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(4000);
+        mDemoSlider.stopAutoCycle();
         mDemoSlider.addOnPageChangeListener(this);
         ListView l = (ListView)findViewById(R.id.transformers);
         l.setAdapter(new TransformerAdapter(this));

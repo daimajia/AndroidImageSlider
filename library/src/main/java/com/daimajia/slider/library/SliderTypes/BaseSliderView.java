@@ -1,9 +1,13 @@
 package com.daimajia.slider.library.SliderTypes;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.VideoView;
 
 import com.daimajia.slider.library.R;
 import com.squareup.picasso.Callback;
@@ -15,8 +19,8 @@ import java.io.File;
 /**
  * When you want to make your own slider view, you must extends from this class.
  * BaseSliderView provides some useful methods.
- * I provide two example: {@link com.daimajia.slider.library.SliderTypes.DefaultSliderView} and
- * {@link com.daimajia.slider.library.SliderTypes.TextSliderView}
+ * I provide two example: {@link DefaultSliderView} and
+ * {@link TextSliderView}
  * if you want to show progressbar, you just need to set a progressbar id as @+id/loading_bar.
  */
 public abstract class BaseSliderView {
@@ -53,6 +57,12 @@ public abstract class BaseSliderView {
      * Scale type of the image.
      */
     private ScaleType mScaleType = ScaleType.Fit;
+
+    private boolean videoLooping = true;
+    private boolean videoIsPrepared = false;
+
+    private boolean autoPlay = true;
+    private int playButtonIcon = R.drawable.play_button;
 
     public enum ScaleType{
         CenterCrop, CenterInside, Fit, FitCenterCrop
@@ -103,13 +113,13 @@ public abstract class BaseSliderView {
     }
 
     /**
-     * set a url as a image that preparing to load
+     * set a url as a image / video that preparing to load
      * @param url
      * @return
      */
-    public BaseSliderView image(String url){
+    public BaseSliderView load(String url){
         if(mFile != null || mRes != 0){
-            throw new IllegalStateException("Call multi image function," +
+            throw new IllegalStateException("Call multi load function," +
                     "you only have permission to call it once");
         }
         mUrl = url;
@@ -117,22 +127,27 @@ public abstract class BaseSliderView {
     }
 
     /**
-     * set a file as a image that will to load
+     * set a file as a image / video that will to load
      * @param file
      * @return
      */
-    public BaseSliderView image(File file){
+    public BaseSliderView load(File file){
         if(mUrl != null || mRes != 0){
-            throw new IllegalStateException("Call multi image function," +
+            throw new IllegalStateException("Call multi load function," +
                     "you only have permission to call it once");
         }
         mFile = file;
         return this;
     }
 
-    public BaseSliderView image(int res){
+    /**
+     * set a resource as a image / video that will to load
+     * @param res
+     * @return
+     */
+    public BaseSliderView load(int res){
         if(mUrl != null || mFile != null){
-            throw new IllegalStateException("Call multi image function," +
+            throw new IllegalStateException("Call multi load function," +
                     "you only have permission to call it once");
         }
         mRes = res;
@@ -246,9 +261,8 @@ public abstract class BaseSliderView {
         rq.into(targetImageView,new Callback() {
             @Override
             public void onSuccess() {
-                if(v.findViewById(R.id.loading_bar) != null){
-                    v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
-                }
+                hideLoadingBar(v);
+
             }
 
             @Override
@@ -256,12 +270,110 @@ public abstract class BaseSliderView {
                 if(mLoadListener != null){
                     mLoadListener.onEnd(false,me);
                 }
-                if(v.findViewById(R.id.loading_bar) != null){
-                    v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
-                }
+                hideLoadingBar(v);
             }
         });
    }
+
+    private void hideLoadingBar(View v) {
+        if(v.findViewById(R.id.loading_bar) != null){
+            v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /**
+     * When you want to implement your own slider view, please call this method in the end in `getView()` method
+     * @param v the whole view
+     * @param videoView where to place video
+     * @param playButton
+     */
+    protected void bindEventAndShow(final View v, VideoView videoView, ImageButton playButton){
+        final BaseSliderView me = this;
+        final VideoView finalVideoView = videoView;
+        final ImageButton finalPlayButton = playButton;
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnSliderClickListener != null){
+                    mOnSliderClickListener.onSliderClick(me);
+                }
+            }
+        });
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (videoIsPrepared) {
+                    finalVideoView.start();
+                    finalPlayButton.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        playButton.setBackgroundResource(playButtonIcon);
+
+        if (videoView == null)
+            return;
+
+        if (mLoadListener != null) {
+            mLoadListener.onStart(me);
+        }
+
+        Uri uri;
+
+        if(mUrl!=null){
+            uri = Uri.parse(mUrl);
+        }else if(mFile != null){
+            uri = Uri.parse(mFile.getAbsolutePath());
+        }else if(mRes != 0){
+            uri = Uri.parse("android.resource://" + getContext().getPackageName() + "/" + mRes);
+        }else{
+            return;
+        }
+
+        videoView.setVideoURI(uri);
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                videoIsPrepared = true;
+                mp.setLooping(videoLooping);
+                hideLoadingBar(v);
+
+                if (autoPlay)
+                    mp.start();
+                else finalPlayButton.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                if (!autoPlay) finalPlayButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+        videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                if(mLoadListener != null){
+                    mLoadListener.onEnd(false,me);
+                }
+                hideLoadingBar(v);
+                return false;
+            }
+        });
+    }
+
+    public BaseSliderView setPlayButtonIcon(int playButtonIcon) {
+        this.playButtonIcon = playButtonIcon;
+        return this;
+    }
+
+    public int getPlayButtonIcon() {
+        return playButtonIcon;
+    }
 
 
 
@@ -272,6 +384,24 @@ public abstract class BaseSliderView {
 
     public ScaleType getScaleType(){
         return mScaleType;
+    }
+
+    public BaseSliderView setVideoLooping(boolean looping){
+        videoLooping = looping;
+        return this;
+    }
+
+    public boolean getVideoLooping(){
+        return videoLooping;
+    }
+
+    public boolean isAutoPlay() {
+        return autoPlay;
+    }
+
+    public BaseSliderView setAutoPlay(boolean autoPlay) {
+        this.autoPlay = autoPlay;
+        return this;
     }
 
     /**
