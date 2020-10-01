@@ -2,7 +2,7 @@
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/daimajia/AndroidImageSlider?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
  
-This is an amazing image slider for the Android platform. I decided to open source this because there is really not an attractive, convenient slider widget in Android.
+This is an amazing image slider for the Android platform. I decided to open-source this because there is really not an attractive, convenient slider widget in Android.
  
 You can easily load images from an internet URL, drawable, or file. And there are many kinds of amazing animations you can choose. :-D
  
@@ -51,9 +51,9 @@ dependencies {
 
 #### Eclipse
 
-For Eclipse users, I provided a sample project which orgnized as Eclipse way. You can download it from [here](https://github.com/daimajia/AndroidImageSlider/releases/download/v1.0.9/AndroidImageSlider-Eclipse.zip), and make some changes to fit your project.
+For Eclipse users, I provided a sample project which organized as Eclipse way. You can download it from [here](https://github.com/daimajia/AndroidImageSlider/releases/download/v1.0.9/AndroidImageSlider-Eclipse.zip), and make some changes to fit your project.
 
-Notice: It's the version of 1.0.9, it may not update any more. You can update manually by yourself.
+Notice: It's the version of 1.0.9, it may not update anymore. You can update manually by yourself.
 
 ### Step 2
 
