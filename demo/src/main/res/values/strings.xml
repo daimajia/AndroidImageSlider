@@ -4,5 +4,7 @@
     <string name="app_name">AndroidImageSlider</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="height">wrap_content</string>
+
 
 </resources>
