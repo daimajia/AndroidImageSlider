@@ -17,7 +17,7 @@
     <com.daimajia.slider.library.Indicators.PagerIndicator
         android:id="@+id/custom_indicator"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@values/height"
         android:gravity="center"
         custom:selected_color="#0095BF"
         custom:unselected_color="#55333333"
@@ -46,7 +46,7 @@
         android:layout_below="@+id/slider"
         android:id="@+id/transformers"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="@values/height"></ListView>
 
 
 </RelativeLayout>
