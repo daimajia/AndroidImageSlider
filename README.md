@@ -98,7 +98,7 @@ There are some default indicators. If you want to use a provided indicator:
  
 ====
  
-## Advanced usage
+## Advanced usage ##
 
 Please visit [Wiki](https://github.com/daimajia/AndroidImageSlider/wiki)
  
